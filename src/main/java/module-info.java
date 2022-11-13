@@ -11,6 +11,8 @@ module net.alkitmessenger.alkitmessenger {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
 
+    requires mysql.connector.java;
+
     opens net.alkitmessenger to javafx.fxml;
 
     exports net.alkitmessenger;
