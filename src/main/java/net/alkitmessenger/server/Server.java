@@ -1,4 +1,4 @@
-package net.alkitmessenger;
+package net.alkitmessenger.server;
 
 
 import lombok.AccessLevel;

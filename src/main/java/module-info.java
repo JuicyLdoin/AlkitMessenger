@@ -16,5 +16,7 @@ module net.alkitmessenger.alkitmessenger {
     opens net.alkitmessenger to javafx.fxml;
 
     exports net.alkitmessenger;
+    exports net.alkitmessenger.server;
+    opens net.alkitmessenger.server to javafx.fxml;
 
 }

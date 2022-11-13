@@ -11,6 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 @Data
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -34,6 +37,12 @@ public class PrivateMessages {
         this.user2 = user2;
 
         messages = FXCollections.observableArrayList();
+
+    }
+
+    public Stream<Message> filter(Predicate<Message> predicate) {
+
+        return messages.stream().filter(predicate);
 
     }
 }
