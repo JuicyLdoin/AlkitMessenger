@@ -4,14 +4,14 @@ module net.alkitmessenger.alkitmessenger {
     requires javafx.fxml;
 
     requires lombok;
-
     requires com.google.gson;
+
+    requires jakarta.persistence;
     requires org.hibernate.orm.core;
+    requires mysql.connector.java;
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
-
-    requires mysql.connector.java;
 
     opens net.alkitmessenger to javafx.fxml;
 
