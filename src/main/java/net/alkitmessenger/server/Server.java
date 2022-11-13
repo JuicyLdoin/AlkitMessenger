@@ -1,48 +1,65 @@
 package net.alkitmessenger.server;
 
-
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import net.alkitmessenger.AlkitMessenger;
+import net.alkitmessenger.server.packet.PacketSerialize;
+import net.alkitmessenger.server.packet.packets.AuthorizePacket;
+import net.alkitmessenger.server.packet.packets.LoginPacket;
+import net.alkitmessenger.user.User;
+import net.alkitmessenger.user.UserConnection;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class Server {
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+public class Server extends Thread {
 
-//    ArrayList<User> clients = new ArrayList<>();
-    public void startServer(int host, int port){
-        try {
-            ServerSocket serverSocket = new ServerSocket(host, port);
-            System.out.println("Server on!");
-            while (true) {
+    ServerSocket serverSocket;
+    List<UserConnection> userConnections;
+
+    public Server(int port) throws IOException {
+
+        serverSocket = new ServerSocket(port);
+        userConnections = new ArrayList<>();
+
+        start();
+
+    }
+
+    public UserConnection getConnectionByUser(User user) {
+
+        return userConnections.stream()
+                .filter(userConnection -> userConnection.getUser().equals(user))
+                .toList()
+                .get(0);
+
+    }
+
+    @Override
+    public void run() {
+
+        while (true) {
+
+            try {
+
                 Socket socket = serverSocket.accept();
-//                User user = new User();
-//                clients.add(user);
-//                new UserThread(user).start();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                AuthorizePacket authorizePacket = (AuthorizePacket) PacketSerialize.serialize(in);
+                authorizePacket.work();
+
+                LoginPacket loginPacket = (LoginPacket) PacketSerialize.serialize(in);
+                loginPacket.work();
+
+                userConnections.add(new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(loginPacket.id())));
+
+            } catch (Exception ignored) {}
         }
-    }
-    public void closeServer(int host, int port){
-        try {
-            ServerSocket serverSocket = new ServerSocket(host, port);
-            serverSocket.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public boolean getStateServer(int host, int port){
-        try {
-            ServerSocket serverSocket = new ServerSocket(host, port);
-            if (!serverSocket.isClosed())
-                return true;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
     }
 }

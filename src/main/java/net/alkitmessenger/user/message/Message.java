@@ -1,4 +1,4 @@
-package net.alkitmessenger.user;
+package net.alkitmessenger.user.message;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import net.alkitmessenger.user.User;
 
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;

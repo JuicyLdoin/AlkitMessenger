@@ -4,15 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.util.IDUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Data
@@ -28,11 +28,14 @@ public class User {
     String displayID;
 
     String name;
+    String password;
 
     @ManyToMany
-    ObservableList<User> friends;
+    List<User> friends;
 
     Date creationDate;
+
+    boolean logined;
 
     public User(String name) {
 
@@ -41,9 +44,11 @@ public class User {
 
         this.name = name;
 
-        friends = FXCollections.observableArrayList();
+        friends = new ArrayList<>();
 
         creationDate = new Date();
+
+        logined = false;
 
     }
 }

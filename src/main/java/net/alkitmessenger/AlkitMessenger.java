@@ -1,13 +1,38 @@
 package net.alkitmessenger;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.experimental.FieldDefaults;
+import net.alkitmessenger.server.Server;
+import net.alkitmessenger.user.UserManager;
 
-public class AlkitMessenger extends Application {
+import java.io.IOException;
 
-    public void start(Stage stage) {
+@Getter
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+public class AlkitMessenger {
 
+    static AlkitMessenger alkitMessenger;
 
+    public static AlkitMessenger getAlkitMessenger() {
+
+        return alkitMessenger;
+
+    }
+
+    Server server;
+    UserManager userManager;
+
+    public static void main(String[] args) throws IOException {
+
+        alkitMessenger = new AlkitMessenger();
+
+    }
+
+    public AlkitMessenger() throws IOException {
+
+        server = new Server(9090);
+        userManager = new UserManager();
 
     }
 }
