@@ -19,7 +19,6 @@ public class CryptorUtil {
 //    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
     public StringBuffer[] byteCryptor(byte[] buffer){
         StringBuffer[] result = new StringBuffer[buffer.length];
-        //меняем рассположение в массиве
         for (int i = 0; i < buffer.length / 2; i++) {
             int temp = buffer[i];
             buffer[i] = buffer[buffer.length - 1 - i];
@@ -27,7 +26,7 @@ public class CryptorUtil {
         }
 
         for (int i = 0; i < buffer.length; i++) {
-            buffer[i] = (byte) -buffer[i]; //меняем знак байта
+            buffer[i] = (byte) -buffer[i];
 
             if (buffer[i] != 0){
                 result[i] = new StringBuffer().append(buffer[i]/26).append(remainsToAlfabet(buffer[i]%26));
