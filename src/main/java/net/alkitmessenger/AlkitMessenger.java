@@ -33,12 +33,15 @@ public class AlkitMessenger {
 
         CryptorAndDecryptorUtil crypto = new CryptorAndDecryptorUtil();
 
-        byte[] test = new byte[5];
-        test[0] = 8;
-        test = crypto.byteCryptor(test);
-        for (int i = 0; i < test.length; i++) {
-            System.out.println(test[i]);
-        }
+
+        StringBuffer test = new StringBuffer().append(-57/26).append(crypto.remainsToAlfabet(-57%26));
+        System.out.println(test.toString());
+//        byte[] test = new byte[5];
+//        test[0] = 8;
+//        test = crypto.byteCryptor(test);
+//        for (int i = 0; i < test.length; i++) {
+//            System.out.println(test[i]);
+//        }
     }
 
     public AlkitMessenger() throws IOException {
