@@ -8,7 +8,8 @@ public class FileCryptorUtil {
         //в общем метод я буду дорабатывать, сделать обработку 0 надо
 
         for (int i = 0; i < result.length; i++) {
-            result[i] = (byte) (result[i]/2); //меняем знак байта
+            if (result[i] != 0)
+                result[i] = (byte) -result[i]; //меняем знак байта
 
             //дальше мы меняем весь массив местами
             int startIndex = 0;
