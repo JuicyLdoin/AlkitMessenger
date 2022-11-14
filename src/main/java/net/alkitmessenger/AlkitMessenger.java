@@ -9,6 +9,8 @@ import net.alkitmessenger.util.CryptorAndDecryptorUtil;
 import net.alkitmessenger.util.HashUtil;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Getter
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -33,9 +35,9 @@ public class AlkitMessenger {
 
         byte[] test = new byte[5];
         test[0] = 8;
-        byte[] aboba = crypto.byteCryptor(test);
-        for (int i = 0; i < aboba.length; i++) {
-            System.out.println(aboba[i]);
+        test = crypto.byteCryptor(test);
+        for (int i = 0; i < test.length; i++) {
+            System.out.println(test[i]);
         }
     }
 
