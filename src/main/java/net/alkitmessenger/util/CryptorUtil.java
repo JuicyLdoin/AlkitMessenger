@@ -1,6 +1,22 @@
 package net.alkitmessenger.util;
 
 public class CryptorUtil {
+
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
+//    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
     public StringBuffer[] byteCryptor(byte[] buffer){
         StringBuffer[] result = new StringBuffer[buffer.length];
         //меняем рассположение в массиве
@@ -36,7 +52,16 @@ public class CryptorUtil {
     }
 
     public String textCryptor(String text){
+        char[] tempArr = text.toCharArray();
 
-        return text;
+        for (int i = 0; i < tempArr.length; i++) {
+            tempArr[i] = (char) ((char) (tempArr[i] / 26) + remainsToAlfabet(tempArr[i] % 26));
+        }
+        for (int i = 0; i < tempArr.length / 2; i++) {
+            char temp = tempArr[i];
+            tempArr[i] = tempArr[tempArr.length - 1 - i];
+            tempArr[tempArr.length - 1 - i] = temp;
+        }
+        return String.valueOf(tempArr);
     }
 }

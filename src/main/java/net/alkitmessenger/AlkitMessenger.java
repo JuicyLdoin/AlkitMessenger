@@ -41,6 +41,9 @@ public class AlkitMessenger {
         for (int i = 0; i < result.length; i++) {
             System.out.println(result[i]);
         }
+
+        System.out.println();
+        System.out.println(crypto.textCryptor("aboba"));
     }
 
     public AlkitMessenger() throws IOException {

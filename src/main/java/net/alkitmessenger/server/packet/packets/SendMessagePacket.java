@@ -6,7 +6,7 @@ import net.alkitmessenger.server.packet.PacketWorkException;
 import java.util.Optional;
 import java.util.Queue;
 
-public record SendMessagePacket(String message) implements Packet {
+public record SendMessagePacket(String text) implements Packet {
 
     @Override
     public Optional<Queue<Packet>> work() throws PacketWorkException {
