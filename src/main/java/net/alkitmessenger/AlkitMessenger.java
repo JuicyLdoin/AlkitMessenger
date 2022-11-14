@@ -5,12 +5,9 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.server.Server;
 import net.alkitmessenger.user.UserManager;
-import net.alkitmessenger.util.CryptorAndDecryptorUtil;
-import net.alkitmessenger.util.HashUtil;
+import net.alkitmessenger.util.CryptorUtil;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 
 @Getter
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -31,17 +28,19 @@ public class AlkitMessenger {
 
         alkitMessenger = new AlkitMessenger();
 
-        CryptorAndDecryptorUtil crypto = new CryptorAndDecryptorUtil();
+        CryptorUtil crypto = new CryptorUtil();
 
 
-        StringBuffer test = new StringBuffer().append(-57/26).append(crypto.remainsToAlfabet(-57%26));
-        System.out.println(test.toString());
-//        byte[] test = new byte[5];
-//        test[0] = 8;
-//        test = crypto.byteCryptor(test);
-//        for (int i = 0; i < test.length; i++) {
-//            System.out.println(test[i]);
-//        }
+        byte[] test = new byte[5];
+        test[0] = 56;
+        test[1] = -35;
+        test[2] = 12;
+        test[3] = -65;
+        test[4] = 24;
+        StringBuffer[] result = crypto.byteCryptor(test);
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i]);
+        }
     }
 
     public AlkitMessenger() throws IOException {
