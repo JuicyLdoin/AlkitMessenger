@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.server.Server;
 import net.alkitmessenger.user.UserManager;
+import net.alkitmessenger.util.HashUtil;
 
 import java.io.IOException;
 

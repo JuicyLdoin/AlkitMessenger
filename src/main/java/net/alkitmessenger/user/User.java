@@ -30,8 +30,7 @@ public class User {
     String name;
     String password;
 
-    @ManyToMany
-    List<User> friends;
+    List<Long> friends;
 
     Date creationDate;
 

@@ -1,6 +1,9 @@
 package net.alkitmessenger.util;
 
 import lombok.experimental.UtilityClass;
+import net.alkitmessenger.user.User;
+import net.alkitmessenger.user.message.Message;
+import net.alkitmessenger.user.message.PrivateMessages;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -22,7 +25,11 @@ public class HibernateUtil {
         if (sessionFactory == null)
             try {
 
-                configuration = new Configuration().configure();
+                configuration = new Configuration().configure()
+                        .addAnnotatedClass(User.class)
+                        .addAnnotatedClass(Message.class)
+                        .addAnnotatedClass(PrivateMessages.class);
+
                 sessionFactory = configuration.buildSessionFactory(new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build());
 
             } catch (Exception exception) {

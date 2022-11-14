@@ -13,7 +13,7 @@ public class UserManager {
 
     public UserManager() {
 
-        new Thread(() -> HibernateUtil.createQueryAndCallActionForEach("From users", User.class, user -> users.put(user.getId(), user))).start();
+        new Thread(() -> HibernateUtil.createQueryAndCallActionForEach("From User", User.class, user -> users.put(user.getId(), user))).start();
 
     }
 

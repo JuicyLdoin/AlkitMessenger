@@ -24,18 +24,24 @@ public class Message {
     long id;
 
     String text;
-    User user;
+    long author;
 
     Date date;
 
-    public Message(String text, User user) {
+    public Message(String text, long author) {
 
         id = ThreadLocalRandom.current().nextLong();
 
         this.text = text;
-        this.user = user;
+        this.author = author;
 
         date = new Date();
+
+    }
+
+    public Message(String text, User author) {
+
+        this(text, author.getId());
 
     }
 }
