@@ -12,19 +12,23 @@ public class SendFilePacket {
     public record sendMessageFile(String filePath) implements Packet {
 
         @Override
-        public void work() throws PacketWorkException, IOException {
-            DataOutputStream dataOutputStream = null;
-            int bytes = 0;
-            File file = new File(filePath);
-            FileInputStream fileInputStream = new FileInputStream(file);
+        public void work() throws PacketWorkException{
+            try {
+                DataOutputStream dataOutputStream = null;
+                int bytes = 0;
+                File file = new File(filePath);
+                FileInputStream fileInputStream = new FileInputStream(file);
 
-            dataOutputStream.writeLong(file.length());
-            byte[] buffer = new byte[64*1024];
-            while ((bytes=fileInputStream.read(buffer))!=-1){
-                dataOutputStream.write(buffer,0,bytes);
-                dataOutputStream.flush();
+                dataOutputStream.writeLong(file.length());
+                byte[] buffer = new byte[64*1024];
+                while ((bytes=fileInputStream.read(buffer))!=-1){
+                    dataOutputStream.write(buffer,0,bytes);
+                    dataOutputStream.flush();
+                }
+                fileInputStream.close();
+            } catch (IOException ignored) {
+
             }
-            fileInputStream.close();
         }
 
         @Override
