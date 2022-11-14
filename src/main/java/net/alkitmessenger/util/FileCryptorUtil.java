@@ -5,10 +5,12 @@ public class FileCryptorUtil {
         byte[] result = buffer;
 
         //тут можно менять знак байта, менять их расположение, перевести в другую систему счисления, чтобы файл не могли перехватить
-        //в общем метод я буду дорабатывать
+        //в общем метод я буду дорабатывать, сделать обработку 0 надо
 
         for (int i = 0; i < result.length; i++) {
-            result[i] = (byte) (result[i]/2);
+            result[i] = (byte) (result[i]/2); //меняем знак байта
+
+            //дальше мы меняем весь массив местами
             int startIndex = 0;
             int endIndex = result.length;
             int shift = 0;
