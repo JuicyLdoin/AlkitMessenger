@@ -7,35 +7,45 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Optional;
+import java.util.Queue;
 
-public class SendFilePacket {
-    public record sendMessageFile(String filePath) implements Packet {
+public record SendFilePacket(String filePath) implements Packet {
 
-        @Override
-        public void work() throws PacketWorkException{
-            try {
-                DataOutputStream dataOutputStream = null;
-                int bytes = 0;
-                File file = new File(filePath);
-                FileInputStream fileInputStream = new FileInputStream(file);
+    @Override
+    public Optional<Queue<Packet>> work() throws PacketWorkException {
 
-                dataOutputStream.writeLong(file.length());
-                byte[] buffer = new byte[64*1024];
-                while ((bytes=fileInputStream.read(buffer))!=-1){
-                    dataOutputStream.write(buffer,0,bytes);
-                    dataOutputStream.flush();
-                }
-                fileInputStream.close();
-            } catch (IOException ignored) {
+        try {
+
+            File file = new File(filePath);
+
+            DataOutputStream dataOutputStream = null;
+            FileInputStream fileInputStream = new FileInputStream(file);
+
+            dataOutputStream.writeLong(file.length());
+
+            int bytes;
+            byte[] buffer = new byte[64 * 1024];
+
+            while ((bytes = fileInputStream.read(buffer)) != -1) {
+
+                dataOutputStream.write(buffer, 0, bytes);
+                dataOutputStream.flush();
 
             }
-        }
 
-        @Override
-        public String serialize() {
+            fileInputStream.close();
 
-            throw new UnsupportedOperationException();
+        } catch (IOException ignored) {}
 
-        }
+        return Optional.empty();
+
+    }
+
+    @Override
+    public String serialize() {
+
+        throw new UnsupportedOperationException();
+
     }
 }

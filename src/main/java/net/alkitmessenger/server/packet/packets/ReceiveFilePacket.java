@@ -4,34 +4,43 @@ import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketWorkException;
 
 import java.io.*;
+import java.util.Optional;
+import java.util.Queue;
 
-public class ReceiveFilePacket {
-    public record receiveMessageFile(String filePath) implements Packet {
+public record ReceiveFilePacket(String filePath) implements Packet {
 
-        @Override
-        public void work() throws PacketWorkException{
-            try {
-                DataInputStream dataInputStream = null;
-                int bytes = 0;
-                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+    @Override
+    public Optional<Queue<Packet>> work() throws PacketWorkException {
 
-                long size = dataInputStream.readLong();
-                byte[] buffer = new byte[64*1024];
-                while (size > 0 && (bytes = dataInputStream.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1) {
-                    fileOutputStream.write(buffer,0,bytes);
-                    size -= bytes;
-                }
-                fileOutputStream.close();
-            } catch (IOException ignored) {
+        try {
+
+            DataInputStream dataInputStream = null;
+            FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+
+            int bytes;
+
+            long size = dataInputStream.readLong();
+            byte[] buffer = new byte[64 * 1024];
+
+            while (size > 0 && (bytes = dataInputStream.read(buffer, 0, (int) Math.min(buffer.length, size))) != -1) {
+
+                fileOutputStream.write(buffer, 0, bytes);
+                size -= bytes;
 
             }
-        }
 
-        @Override
-        public String serialize() {
+            fileOutputStream.close();
 
-            throw new UnsupportedOperationException();
+        } catch (IOException ignored) {}
 
-        }
+        return Optional.empty();
+
+    }
+
+    @Override
+    public String serialize() {
+
+        throw new UnsupportedOperationException();
+
     }
 }

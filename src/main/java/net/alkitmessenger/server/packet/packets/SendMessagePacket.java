@@ -3,21 +3,22 @@ package net.alkitmessenger.server.packet.packets;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketWorkException;
 
-import java.io.*;
+import java.util.Optional;
+import java.util.Queue;
 
-public class SendMessagePacket {
-    public record sendMessageText(String message) implements Packet {
+public record SendMessagePacket(String message) implements Packet {
 
-        @Override
-        public void work() throws PacketWorkException {
+    @Override
+    public Optional<Queue<Packet>> work() throws PacketWorkException {
 
-        }
+        return Optional.empty();
 
-        @Override
-        public String serialize() {
+    }
 
-            throw new UnsupportedOperationException();
+    @Override
+    public String serialize() {
 
-        }
+        throw new UnsupportedOperationException();
+
     }
 }
