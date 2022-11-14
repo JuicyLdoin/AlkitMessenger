@@ -3,19 +3,35 @@ package net.alkitmessenger.server.packet.packets;
 import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketWorkException;
+import net.alkitmessenger.user.User;
 
-public record LoginPacket(long id) implements Packet {
+import java.util.Optional;
+import java.util.Queue;
 
-    public void work() throws PacketWorkException {
+public record LoginPacket(String str) implements Packet {
 
-        if (AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(id) == null)
+    public Optional<Queue<Packet>> work() throws PacketWorkException {
+
+        String[] split = str.split(";");
+
+        if (split.length != 2)
             throw new PacketWorkException();
+
+        User user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(Long.parseLong(split[0]));
+
+        if (user == null)
+            throw new PacketWorkException();
+
+        if (!user.equalsPassword(split[1]))
+            throw new PacketWorkException();
+
+        return Optional.empty();
 
     }
 
     public String serialize() {
 
-        throw new UnsupportedOperationException();
+        return str.split(";")[0];
 
     }
 }

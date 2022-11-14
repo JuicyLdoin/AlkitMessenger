@@ -3,6 +3,7 @@ package net.alkitmessenger.server;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.AlkitMessenger;
+import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketSerialize;
 import net.alkitmessenger.server.packet.packets.AuthorizePacket;
 import net.alkitmessenger.server.packet.packets.LoginPacket;
@@ -16,6 +17,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Queue;
 
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class Server extends Thread {
@@ -55,9 +58,13 @@ public class Server extends Thread {
                 authorizePacket.work();
 
                 LoginPacket loginPacket = (LoginPacket) PacketSerialize.serialize(in);
-                loginPacket.work();
+                Optional<Queue<Packet>> feedback = loginPacket.work();
 
-                userConnections.add(new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(loginPacket.id())));
+                UserConnection userConnection = new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(loginPacket.serialize()));
+
+                feedback.ifPresent(packets -> packets.forEach(userConnection::addPacket));
+
+                userConnections.add(userConnection);
 
             } catch (Exception ignored) {}
         }

@@ -23,6 +23,12 @@ public class UserManager {
 
     }
 
+    public User getUserByID(String id) {
+
+        return users.get(Long.parseLong(id));
+
+    }
+
     public User getUserByNameAndDisplayID(String name, String displayID) {
 
         return users.values()
