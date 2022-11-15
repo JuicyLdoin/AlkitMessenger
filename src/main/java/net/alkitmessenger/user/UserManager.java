@@ -39,4 +39,10 @@ public class UserManager {
                 .get(0);
 
     }
+
+    public void saveUser(User user) {
+
+        HibernateUtil.saveOrUpdate(user);
+
+    }
 }
