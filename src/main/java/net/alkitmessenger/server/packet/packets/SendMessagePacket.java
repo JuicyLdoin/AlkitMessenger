@@ -1,12 +1,15 @@
 package net.alkitmessenger.server.packet.packets;
 
+import net.alkitmessenger.AlkitMessenger;
+import net.alkitmessenger.server.Server;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketWorkException;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Queue;
 
-public record SendMessagePacket(String text) implements Packet {
+public record SendMessagePacket(String cryptText, long interlocutorID) implements Packet {
 
     @Override
     public Optional<Queue<Packet>> work() throws PacketWorkException {
@@ -18,7 +21,12 @@ public record SendMessagePacket(String text) implements Packet {
     @Override
     public String serialize() {
 
-        throw new UnsupportedOperationException();
-
+        try {
+            Server server = new Server(9090);
+            server.sendMsg(cryptText);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return cryptText;
     }
 }

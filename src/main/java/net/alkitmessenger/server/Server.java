@@ -13,18 +13,19 @@ import net.alkitmessenger.user.UserConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Server extends Thread {
 
-    ServerSocket serverSocket;
-    List<UserConnection> userConnections;
+    final ServerSocket serverSocket;
+    final List<UserConnection> userConnections;
+    PrintWriter outMessage;
+
+    Scanner scan;
 
     public Server(int port) throws IOException {
 
@@ -42,6 +43,15 @@ public class Server extends Thread {
                 .toList()
                 .get(0);
 
+    }
+
+    public void sendMsg(String msg) {
+        try {
+            outMessage.println(msg);
+            outMessage.flush();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -65,6 +75,10 @@ public class Server extends Thread {
                 feedback.ifPresent(packets -> packets.forEach(userConnection::addPacket));
 
                 userConnections.add(userConnection);
+
+                outMessage = new PrintWriter(socket.getOutputStream());
+
+                scan = new Scanner(socket.getInputStream());
 
             } catch (Exception ignored) {}
         }
