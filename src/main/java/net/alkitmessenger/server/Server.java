@@ -45,17 +45,8 @@ public class Server extends Thread {
 
     public void sendMessage(String msg) {
 
-        try {
+        outMessage.println(msg);
 
-            outMessage.println(msg);
-
-            outMessage.flush();
-
-        } catch (Exception ex) {
-
-            ex.printStackTrace();
-
-        }
     }
 
     @Override
