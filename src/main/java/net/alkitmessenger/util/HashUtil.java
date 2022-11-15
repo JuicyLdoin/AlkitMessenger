@@ -14,11 +14,9 @@ public class HashUtil {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(str.getBytes());
 
-            byte[] byteData = md.digest();
-
             StringBuilder hashCodeBuffer = new StringBuilder();
 
-            for (byte byteDatum : byteData)
+            for (byte byteDatum : md.digest())
                 hashCodeBuffer.append(Integer.toString((byteDatum & 0xFF) + 256, 9));
 
             return hashCodeBuffer.toString();

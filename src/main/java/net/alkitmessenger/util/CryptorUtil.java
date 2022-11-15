@@ -1,5 +1,7 @@
 package net.alkitmessenger.util;
 
+import java.util.stream.IntStream;
+
 public class CryptorUtil {
 
 //    ПЕРЕНЕСТИ КЛАСС В КЛИЕНТСКУЮ ЧАСТЬ
@@ -25,27 +27,24 @@ public class CryptorUtil {
             buffer[buffer.length - 1 - i] = (byte) temp;
         }
 
-        for (int i = 0; i < buffer.length; i++) {
+        IntStream.range(0, buffer.length).forEach(i -> {
             buffer[i] = (byte) -buffer[i];
-
-            if (buffer[i] != 0){
-                result[i] = new StringBuffer().append(buffer[i]/26).append(remainsToAlfabet(buffer[i]%26));
+            if (buffer[i] != 0) {
+                result[i] = new StringBuffer().append(buffer[i] / 26).append(remainsToAlfabet(buffer[i] % 26));
             }
-        }
+        });
 
         return result;
     }
     public char remainsToAlfabet(int i){
-        char[] alphabetm = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        char[] alphabetM = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
         char[] result;
 
         if (i < 0){
-            result = alphabetM;
+            result = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
             i = -i;
         }
         else
-            result = alphabetm;
+            result = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
         return result[i];
     }

@@ -1,6 +1,5 @@
 package net.alkitmessenger.server.packet.packets;
 
-import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.server.Server;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketWorkException;
