@@ -32,18 +32,18 @@ public class AlkitMessenger {
 
 
         byte[] test = new byte[5];
-        test[0] = 56;
-        test[1] = -35;
-        test[2] = 12;
-        test[3] = -65;
-        test[4] = 24;
+        test[0] = -127;
+        test[1] = -63;
+        test[2] = 127;
+        test[3] = -1;
+        test[4] = 0;
         StringBuffer[] result = crypto.byteCryptor(test);
-        for (int i = 0; i < result.length; i++) {
-            System.out.println(result[i]);
+        for (StringBuffer stringBuffer : result) {
+            System.out.println(stringBuffer);
         }
 
         System.out.println();
-        System.out.println(crypto.textCryptor("aboba"));
+        System.out.println(crypto.textCryptor("Lynarion"));
     }
 
     public AlkitMessenger() throws IOException {
