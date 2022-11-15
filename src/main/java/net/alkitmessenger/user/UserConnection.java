@@ -2,6 +2,7 @@ package net.alkitmessenger.user;
 
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
+import net.alkitmessenger.server.packet.PacketSerialize;
 
 import java.io.*;
 import java.net.Socket;
@@ -44,6 +45,13 @@ public class UserConnection extends Thread {
         while (true) {
 
             try {
+
+                // получение пакетов от пользователя
+
+                while (in.ready())
+                    PacketSerialize.serialize(in).work();
+
+                // отправка пакетов пользователю из очереди
 
                 Packet packet = outPackets.poll();
 
