@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.server.Server;
 import net.alkitmessenger.user.UserManager;
 import net.alkitmessenger.util.CryptorUtil;
+import net.alkitmessenger.util.HashUtil;
 
 import java.io.IOException;
 
@@ -52,6 +53,7 @@ public class AlkitMessenger {
                 "The book is full of suspense and plot twists, but I would not say that “Six of Crows” is a plot-based story. In my opinion, it is character-based. The longer we follow the Crows’ adventures, the more we get to learn about them. All of them are interesting, well-written characters. Their backstories are revealed gradually, and we get to know why Kaz never touches people, how Jesper was taught to shoot, and so on. The storyline that I love the most was the one about Nina and Matthias, the sorceress and the warrior. At first, they are sworn enemies – “a witch and a witch hunter”, but then it changes. I think this is the most dramatic and thought-out part of the book.\n" +
                 "\n" +
                 "If you like immersing yourself into a fun story with great characters, I would like to recommend you “Six of Crows”. It is one of the best fantasy books I have ever read. I hope you will enjoy it too."));
+
     }
 
     public AlkitMessenger() throws IOException {

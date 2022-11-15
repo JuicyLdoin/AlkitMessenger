@@ -1,36 +1,33 @@
 package net.alkitmessenger.util;
 
 import lombok.experimental.UtilityClass;
+import org.jetbrains.annotations.NotNull;
 
 import java.security.MessageDigest;
 
 @UtilityClass
 public class HashUtil {
 
-    public static String getHashCodeFromString(String str) {
+    public static @NotNull String getHashCodeFromString(String str) {
+        try {
 
-        if (str != null && !str.equals(""))
-            try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(str.getBytes());
 
-                MessageDigest md = MessageDigest.getInstance("SHA-512");
-                md.update(str.getBytes());
+            byte[] byteData = md.digest();
 
-                byte[] byteData = md.digest();
+            StringBuilder hashCodeBuffer = new StringBuilder();
 
-                StringBuilder hashCodeBuffer = new StringBuilder();
+            for (byte byteDatum : byteData)
+                hashCodeBuffer.append(Integer.toString((byteDatum & 0xFF) + 256, 9));
 
-                for (byte byteDatum : byteData)
-                    hashCodeBuffer.append(Integer.toString((byteDatum & 0xFF) + 256, 9));
+            return hashCodeBuffer.toString();
+        } catch (Exception exception) {
 
-                return hashCodeBuffer.toString();
+            exception.printStackTrace();
 
-            } catch (Exception exception) {
-
-                exception.printStackTrace();
-
-            }
+        }
 
         return "";
-
     }
 }
