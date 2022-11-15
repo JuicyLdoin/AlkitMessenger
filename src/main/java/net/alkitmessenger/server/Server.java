@@ -10,10 +10,7 @@ import net.alkitmessenger.server.packet.packets.LoginPacket;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.UserConnection;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -23,14 +20,15 @@ public class Server extends Thread {
 
     final ServerSocket serverSocket;
     final List<UserConnection> userConnections;
-    PrintWriter outMessage;
 
-    Scanner scan;
+    final PrintStream outMessage;
 
     public Server(int port) throws IOException {
 
         serverSocket = new ServerSocket(port);
         userConnections = new ArrayList<>();
+
+        outMessage = System.out;
 
         start();
 
@@ -45,12 +43,18 @@ public class Server extends Thread {
 
     }
 
-    public void sendMsg(String msg) {
+    public void sendMessage(String msg) {
+
         try {
+
             outMessage.println(msg);
+
             outMessage.flush();
+
         } catch (Exception ex) {
+
             ex.printStackTrace();
+
         }
     }
 
@@ -75,10 +79,6 @@ public class Server extends Thread {
                 feedback.ifPresent(packets -> packets.forEach(userConnection::addPacket));
 
                 userConnections.add(userConnection);
-
-                outMessage = new PrintWriter(socket.getOutputStream());
-
-                scan = new Scanner(socket.getInputStream());
 
             } catch (Exception ignored) {}
         }

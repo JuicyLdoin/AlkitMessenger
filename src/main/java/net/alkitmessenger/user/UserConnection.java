@@ -33,6 +33,7 @@ public class UserConnection extends Thread {
 
     }
 
+    // добавление пакета в очередь на отправку пользователю
     public void addPacket(Packet packet) {
 
         outPackets.add(packet);
