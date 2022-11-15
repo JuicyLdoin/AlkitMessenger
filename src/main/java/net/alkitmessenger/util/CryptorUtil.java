@@ -65,16 +65,14 @@ public class CryptorUtil {
 
     public byte[] byteDecryptor(StringBuffer[] cryptByte){
         byte[] result = new byte[cryptByte.length];
-        StringBuffer[] temp = cryptByte;
-        for (int i = 0; i < temp.length / 2; i++) {
-            StringBuffer tempInt = temp[i];
-            temp[i] = temp[temp.length - 1 - i];
-            temp[temp.length - 1 - i] = tempInt;
+        for (int i = 0; i < cryptByte.length / 2; i++) {
+            StringBuffer tempInt = cryptByte[i];
+            cryptByte[i] = cryptByte[cryptByte.length - 1 - i];
+            cryptByte[cryptByte.length - 1 - i] = tempInt;
         }
-        for (int i = 0; i < temp.length; i++) {
-            if (temp[i] != null){
-                char[] onlyStr = temp[i].toString().replaceAll("\\d+","").toCharArray();
-                result[i] = Byte.parseByte(temp[i].toString().replaceAll("\\D+","") + alfabetToRemains(onlyStr[0]));
+        for (int i = 0; i < cryptByte.length; i++) {
+            if (cryptByte[i] != null){
+                result[i] = Byte.parseByte(cryptByte[i].toString().replaceAll("\\D+","") + alfabetToRemains(cryptByte[i].toString().replaceAll("\\d+","").toCharArray()[0]));
             }
             else
                 result[i] = 0;
@@ -82,22 +80,18 @@ public class CryptorUtil {
         return result;
     }
     public int alfabetToRemains(char r){
-        int result = 0;
-        char[] used;
+        char[] used = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};;
 
         if (Character.isUpperCase(r)){
-            used = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-            for (char temp : used){
-                if (temp == r) result = used[temp];
-            }
+            for (char temp : used)
+                if (temp == r) return used[temp];
+
         }
         else{
-            used = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-            for (char temp : used){
-                if (temp == r) result = -used[temp];
-            }
+            for (char temp : used)
+                if (temp == r) return -used[temp];
         }
 
-        return result;
+        return -1;
     }
 }
