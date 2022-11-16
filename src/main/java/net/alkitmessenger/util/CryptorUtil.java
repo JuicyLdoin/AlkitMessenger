@@ -1,5 +1,7 @@
 package net.alkitmessenger.util;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class CryptorUtil {
@@ -72,7 +74,12 @@ public class CryptorUtil {
         }
         for (int i = 0; i < cryptByte.length; i++) {
             if (cryptByte[i] != null){
-                result[i] = Byte.parseByte(cryptByte[i].toString().replaceAll("\\D+","") + alfabetToRemains(cryptByte[i].toString().replaceAll("\\d+","").toCharArray()[0]));
+                //result[i] = Byte.parseByte(cryptByte[i].toString().replaceAll("\\D+","") + alfabetToRemains(cryptByte[i].toString().replaceAll("\\d+","").toCharArray()[0]));
+//                System.out.println(cryptByte[i].toString().replaceAll("\\D+","") + alfabetToRemains(cryptByte[i].toString().replaceAll("\\d+","").toCharArray()[i]));
+//                System.out.println(cryptByte[i].toString().replaceAll("\\D+",""));
+//                System.out.println(cryptByte[i].toString().replaceAll("\\d+",""));
+//                System.out.println(alfabetToRemains(cryptByte[i].toString().replaceAll("\\d+","").toCharArray()[i]));
+//                System.out.println(alfabetToRemains('W'));
             }
             else
                 result[i] = 0;
@@ -83,13 +90,14 @@ public class CryptorUtil {
         char[] used = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
         if (Character.isUpperCase(r)){
-            for (char temp : used)
-                if (temp == r) return used[temp];
-
+            for (int i = 0; i < used.length; i++) {
+                if (used[i] == r) return i;
+            }
         }
         else{
-            for (char temp : used)
-                if (temp == r) return -used[temp];
+            for (int i = 0; i < used.length; i++) {
+                if (used[i] == r) return -i;
+            }
         }
 
         return -1;
