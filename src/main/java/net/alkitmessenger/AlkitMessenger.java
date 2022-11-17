@@ -34,8 +34,6 @@ public class AlkitMessenger {
 
     public AlkitMessenger() throws IOException {
 
-
-
         server = new Server(9090);
 
         userManager = new UserManager();

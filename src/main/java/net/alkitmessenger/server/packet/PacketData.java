@@ -7,18 +7,18 @@ import lombok.Value;
 public class PacketData<T> {
 
     String classPath;
-    T data;
+    String jsonString;
 
     public PacketData(T data) {
 
         classPath = data.getClass().getName();
-        this.data = data;
+        jsonString = new Gson().toJson(data);
 
     }
 
-    public T deserialize(String string) {
+    public T deserialize() throws ClassNotFoundException {
 
-        return (T) new Gson().fromJson(string, data.getClass());
+        return (T) new Gson().fromJson(jsonString, Class.forName(classPath));
 
     }
 }
