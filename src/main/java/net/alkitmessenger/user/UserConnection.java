@@ -54,16 +54,19 @@ public class UserConnection extends Thread {
 
                 // отправка пакетов пользователю из очереди
 
-                Packet packet = outPackets.poll();
+                while (!outPackets.isEmpty()) {
 
-                if (packet == null)
-                    continue;
+                    Packet packet = outPackets.poll();
 
-                Queue<Packet> packetData = packet.feedback();
+                    if (packet == null)
+                        continue;
 
-                while (!packetData.isEmpty())
-                    packetData.poll().serialize(out);
+                    Queue<Packet> packetData = packet.feedback();
 
+                    while (!packetData.isEmpty())
+                        packetData.poll().serialize(out);
+
+                }
             } catch (Exception ignored) {}
         }
     }
