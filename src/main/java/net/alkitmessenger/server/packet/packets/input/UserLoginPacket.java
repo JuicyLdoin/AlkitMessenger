@@ -11,14 +11,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 @Value
-public class LoginPacket extends Packet {
+public class UserLoginPacket extends Packet {
 
     User user;
 
     long uid;
     String password;
 
-    public LoginPacket(long uid, String password) {
+    public UserLoginPacket(long uid, String password) {
 
         user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(uid);
 
