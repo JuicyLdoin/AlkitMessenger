@@ -13,7 +13,10 @@ public class PacketSerialize {
 
     public static Packet serialize(BufferedReader bufferedReader) throws IOException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        short packetID = (short) bufferedReader.read();
+        if (!bufferedReader.ready())
+            throw new IllegalAccessException();
+
+        byte packetID = (byte) bufferedReader.read();
         Packets packets = Packets.getByID(packetID);
 
         if (packets == null)

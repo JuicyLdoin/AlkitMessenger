@@ -29,9 +29,12 @@ public class AlkitMessenger {
     public static void main(String[] args) throws IOException {
 
         alkitMessenger = new AlkitMessenger();
+
     }
 
     public AlkitMessenger() throws IOException {
+
+
 
         server = new Server(9090);
 

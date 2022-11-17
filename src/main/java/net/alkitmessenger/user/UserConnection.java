@@ -1,5 +1,6 @@
 package net.alkitmessenger.user;
 
+import com.google.gson.Gson;
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketSerialize;
@@ -19,7 +20,7 @@ public class UserConnection extends Thread {
     BufferedReader in;
 
     Queue<Packet> outPackets;
-    BufferedWriter out;
+    PrintWriter out;
 
     public UserConnection(Socket socket, User user) throws IOException {
 
@@ -29,7 +30,7 @@ public class UserConnection extends Thread {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         outPackets = new LinkedList<>();
-        out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
     }
 

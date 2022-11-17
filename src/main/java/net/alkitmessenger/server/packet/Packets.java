@@ -3,25 +3,28 @@ package net.alkitmessenger.server.packet;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import net.alkitmessenger.server.packet.packets.AuthorizePacket;
+import net.alkitmessenger.server.packet.packets.input.*;
+import net.alkitmessenger.server.packet.packets.output.*;
 
 @Getter
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public enum Packets {
 
-    AUTHORIZE_PACKET((short) 0, AuthorizePacket.class);
+    AUTHORIZE_PACKET((byte) 0, AuthorizePacket.class),
 
-    short id;
+    USER_DATA_PACKET((byte) 1, UserDataPacket.class);
+
+    byte id;
     Class<? extends Packet> clazz;
 
-    Packets(short id, Class<? extends Packet> clazz) {
+    Packets(byte id, Class<? extends Packet> clazz) {
 
         this.id = id;
         this.clazz = clazz;
 
     }
 
-    public static Packets getByID(short id) {
+    public static Packets getByID(byte id) {
 
         for (Packets packets : values())
             if (packets.getId() == id)
