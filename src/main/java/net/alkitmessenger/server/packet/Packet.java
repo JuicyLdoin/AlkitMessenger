@@ -1,12 +1,14 @@
 package net.alkitmessenger.server.packet;
 
-import java.util.Optional;
+import java.io.BufferedWriter;
 import java.util.Queue;
 
-public interface Packet {
+public abstract class Packet {
 
-    Optional<Queue<Packet>> work() throws PacketWorkException;
+    public abstract void work() throws PacketWorkException;
 
-    String serialize();
+    public Queue<Packet> feedback() { throw new UnsupportedOperationException(); }
+
+    public void serialize(BufferedWriter bufferedWriter) {}
 
 }

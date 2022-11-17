@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.user.User;
 
 import java.util.ArrayList;
@@ -50,6 +51,42 @@ public class PrivateMessages {
     public Stream<Message> filter(Predicate<Message> predicate) {
 
         return messages.stream().filter(predicate);
+
+    }
+
+    public boolean hasUser(User user) {
+
+        return hasUser(user.getId());
+
+    }
+
+    public boolean hasUser(long user) {
+
+        return user1 == user || user2 == user;
+
+    }
+
+    public User getSecondUser(User user) {
+
+        return getSecondUser(user.getId());
+
+    }
+
+    public User getSecondUser(long user) {
+
+        return AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(getSecondUserID(user));
+
+    }
+
+    public long getSecondUserID(User user) {
+
+        return getSecondUserID(user.getId());
+
+    }
+
+    public long getSecondUserID(long user) {
+
+        return user1 == user ? user2 : user1;
 
     }
 }

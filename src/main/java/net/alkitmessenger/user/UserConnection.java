@@ -59,9 +59,10 @@ public class UserConnection extends Thread {
                 if (packet == null)
                     continue;
 
-                String packetData = packet.serialize();
+                Queue<Packet> packetData = packet.feedback();
 
-                out.write(packetData);
+                while (!packetData.isEmpty())
+                    packetData.poll().serialize(out);
 
             } catch (Exception ignored) {}
         }

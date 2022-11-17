@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import net.alkitmessenger.util.HashUtil;
 import net.alkitmessenger.util.IDUtil;
 
 import java.util.ArrayList;
@@ -53,13 +52,7 @@ public class User {
 
     public boolean equalsPassword(String password) {
 
-        return this.password.equals(HashUtil.getHashCodeFromString(password));
-
-    }
-
-    public void setPassword(String password) {
-
-        this.password = HashUtil.getHashCodeFromString(password);
+        return this.password.equals(password);
 
     }
 }

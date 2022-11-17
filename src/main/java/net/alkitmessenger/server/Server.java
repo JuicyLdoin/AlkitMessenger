@@ -2,11 +2,8 @@ package net.alkitmessenger.server;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import net.alkitmessenger.AlkitMessenger;
-import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketSerialize;
 import net.alkitmessenger.server.packet.packets.AuthorizePacket;
-import net.alkitmessenger.server.packet.packets.LoginPacket;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.UserConnection;
 
@@ -62,14 +59,14 @@ public class Server extends Thread {
                 AuthorizePacket authorizePacket = (AuthorizePacket) PacketSerialize.serialize(in);
                 authorizePacket.work();
 
-                LoginPacket loginPacket = (LoginPacket) PacketSerialize.serialize(in);
-                Optional<Queue<Packet>> feedback = loginPacket.work();
-
-                UserConnection userConnection = new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(loginPacket.serialize()));
-
-                feedback.ifPresent(packets -> packets.forEach(userConnection::addPacket));
-
-                userConnections.add(userConnection);
+//                LoginPacket loginPacket = (LoginPacket) PacketSerialize.serialize(in);
+//                Optional<Queue<Packet>> feedback = loginPacket.work();
+//
+//                UserConnection userConnection = new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(loginPacket.serialize()));
+//
+//                feedback.ifPresent(packets -> packets.forEach(userConnection::addPacket));
+//
+//                userConnections.add(userConnection);
 
             } catch (Exception ignored) {}
         }
