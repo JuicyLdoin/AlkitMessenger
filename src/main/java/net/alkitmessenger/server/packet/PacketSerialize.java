@@ -23,8 +23,6 @@ public class PacketSerialize {
         if (packets == null)
             throw new NullPointerException();
 
-        Class<? extends Packet> clazz = packets.getClazz();
-
         List<PacketData<?>> args = new ArrayList<>();
 
         while (bufferedReader.ready())
@@ -42,7 +40,7 @@ public class PacketSerialize {
 
         }
 
-        return clazz.getConstructor(classes).newInstance(objects);
+        return packets.getClazz().getConstructor(classes).newInstance(objects);
 
     }
 }
