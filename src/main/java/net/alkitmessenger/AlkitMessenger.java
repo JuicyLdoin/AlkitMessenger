@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.server.Server;
 import net.alkitmessenger.user.UserManager;
-import net.alkitmessenger.util.CryptorUtil;
 
 import java.io.IOException;
 
@@ -27,25 +26,6 @@ public class AlkitMessenger {
     public static void main(String[] args) throws IOException {
 
         alkitMessenger = new AlkitMessenger();
-
-        CryptorUtil crypto = new CryptorUtil();
-
-
-        byte[] test = new byte[5];
-        test[0] = -127;
-        test[1] = -63;
-        test[2] = 127;
-        test[3] = -1;
-        test[4] = 0;
-        StringBuffer[] result = crypto.byteCryptor(test);
-        for (StringBuffer stringBuffer : result) {
-            System.out.println(stringBuffer);
-        }
-        System.out.println("\n");
-        byte[] result1 = crypto.byteDecryptor(result);
-        for (byte bytes : result1) {
-            System.out.println(bytes);
-        }
     }
 
     public AlkitMessenger() throws IOException {

@@ -4,25 +4,20 @@ import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketWorkException;
 import net.alkitmessenger.user.User;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.Queue;
 
-public record LoginPacket(String str) implements Packet {
+public record LoginPacket(@NotNull String login, @NotNull String hashPassword) implements Packet {
 
     public Optional<Queue<Packet>> work() throws PacketWorkException {
-
-        String[] split = str.split(";");
-
-        if (split.length != 2)
-            throw new PacketWorkException();
-
-        User user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(Long.parseLong(split[0]));
+        User user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(Long.parseLong(login));
 
         if (user == null)
             throw new PacketWorkException();
 
-        if (!user.equalsPassword(split[1]))
+        if (!user.equalsPassword(hashPassword))
             throw new PacketWorkException();
 
         return Optional.empty();
@@ -31,7 +26,7 @@ public record LoginPacket(String str) implements Packet {
 
     public String serialize() {
 
-        return str.split(";")[0];
+        return "susses";
 
     }
 }
