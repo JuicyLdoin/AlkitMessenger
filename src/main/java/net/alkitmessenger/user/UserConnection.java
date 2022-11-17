@@ -1,6 +1,5 @@
 package net.alkitmessenger.user;
 
-import com.google.gson.Gson;
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketSerialize;
@@ -71,8 +70,8 @@ public class UserConnection extends Thread {
                 }
             } catch (Exception exception) {
 
-                exception.printStackTrace();
                 addPacket(new ExceptionPacket(exception.getMessage()));
+                throw new RuntimeException("Error on user " + user.getId() + ". Message: " + exception.getMessage());
 
             }
         }
