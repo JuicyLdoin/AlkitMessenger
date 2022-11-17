@@ -10,9 +10,12 @@ import net.alkitmessenger.server.packet.packets.output.*;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public enum Packets {
 
+    LOGIN_PACKET((byte) -1, LoginPacket.class),
+
     AUTHORIZE_PACKET((byte) 0, AuthorizePacket.class),
 
-    USER_DATA_PACKET((byte) 1, UserDataPacket.class);
+    USER_DATA_PACKET((byte) 1, UserDataPacket.class),
+    SEND_TO_WINDOW_PACKET((byte) 2, SendToWindowPacket.class);
 
     byte id;
     Class<? extends Packet> clazz;
