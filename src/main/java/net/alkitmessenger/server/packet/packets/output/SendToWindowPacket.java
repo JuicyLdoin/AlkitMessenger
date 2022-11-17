@@ -10,6 +10,12 @@ public class SendToWindowPacket extends Packet {
 
     String windowPath;
 
+    public SendToWindowPacket(String windowPath) {
+
+        this.windowPath = "/scenes/" + windowPath + "Scene.fxml";
+
+    }
+
     public void serialize(PrintWriter printWriter) {
 
         writeObject(printWriter, windowPath);

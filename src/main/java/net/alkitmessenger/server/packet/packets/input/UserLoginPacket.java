@@ -4,6 +4,7 @@ import lombok.Value;
 import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketWorkException;
+import net.alkitmessenger.server.packet.packets.output.SendToWindowPacket;
 import net.alkitmessenger.server.packet.packets.output.UserDataPacket;
 import net.alkitmessenger.user.User;
 
@@ -42,6 +43,7 @@ public class UserLoginPacket extends Packet {
         Queue<Packet> feedback = new LinkedList<>();
 
         feedback.add(new UserDataPacket(user));
+        feedback.add(new SendToWindowPacket("main"));
 
         return feedback;
 
