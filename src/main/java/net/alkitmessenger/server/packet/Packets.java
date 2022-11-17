@@ -10,6 +10,7 @@ import net.alkitmessenger.server.packet.packets.output.*;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public enum Packets {
 
+    USER_DISCONNECT_PACKET((byte) -2, UserDisconnectPacket.class),
     USER_LOGIN_PACKET((byte) -1, UserLoginPacket.class),
 
     AUTHORIZE_PACKET((byte) 0, AuthorizePacket.class),
