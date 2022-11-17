@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketSerialize;
+import net.alkitmessenger.server.packet.packets.output.ExceptionPacket;
 
 import java.io.*;
 import java.net.Socket;
@@ -68,7 +69,12 @@ public class UserConnection extends Thread {
                         packetData.poll().serialize(out);
 
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception exception) {
+
+                exception.printStackTrace();
+                addPacket(new ExceptionPacket(exception.getMessage()));
+
+            }
         }
     }
 }
