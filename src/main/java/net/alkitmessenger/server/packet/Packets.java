@@ -15,7 +15,8 @@ public enum Packets {
     AUTHORIZE_PACKET((byte) 0, AuthorizePacket.class),
 
     USER_DATA_PACKET((byte) 1, UserDataPacket.class),
-    SEND_TO_WINDOW_PACKET((byte) 2, SendToWindowPacket.class);
+    SEND_TO_WINDOW_PACKET((byte) 2, SendToWindowPacket.class),
+    EXCEPTION_PACKET((byte) 3, ExceptionPacket.class);
 
     byte id;
     Class<? extends Packet> clazz;
