@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 @Value
 public class UserConnection extends Thread {
@@ -18,7 +19,7 @@ public class UserConnection extends Thread {
 
     Socket socket;
 
-    BufferedReader in;
+    Scanner in;
 
     Queue<Packet> outPackets;
     PrintWriter out;
@@ -28,7 +29,7 @@ public class UserConnection extends Thread {
         this.socket = socket;
         this.user = user;
 
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        in = new Scanner(socket.getInputStream());
 
         outPackets = new LinkedList<>();
         out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -50,7 +51,7 @@ public class UserConnection extends Thread {
 
                 // получение пакетов от пользователя
 
-                while (in.ready())
+                while (in.hasNext())
                     PacketSerialize.serialize(in).work();
 
                 // отправка пакетов пользователю из очереди

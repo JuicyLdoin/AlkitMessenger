@@ -55,13 +55,13 @@ public class Server extends Thread {
             try {
 
                 Socket socket = serverSocket.accept();
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                Scanner in = new Scanner(socket.getInputStream());
 
                 System.out.println("connection initialized");
 
                 while (true) {
 
-                    if (!in.ready())
+                    if (!in.hasNext())
                         continue;
 
                     AuthorizePacket authorizePacket = (AuthorizePacket) PacketSerialize.serialize(in);
