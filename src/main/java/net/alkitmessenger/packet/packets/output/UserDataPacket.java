@@ -30,5 +30,8 @@ public class UserDataPacket extends Packet {
                 exception.printStackTrace();
 
             }
+
+        printWriter.flush();
+
     }
 }

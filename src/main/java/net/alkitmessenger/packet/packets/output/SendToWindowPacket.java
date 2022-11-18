@@ -20,7 +20,10 @@ public class SendToWindowPacket extends Packet {
     public void serialize(@NonNull PrintWriter printWriter) {
 
         printWriter.println(getID(getClass()));
+
         writeObject(printWriter, windowPath);
+
+        printWriter.flush();
 
     }
 }

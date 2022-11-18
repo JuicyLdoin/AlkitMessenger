@@ -14,7 +14,10 @@ public class ExceptionPacket extends Packet {
     public void serialize(@NonNull PrintWriter printWriter) {
 
         printWriter.println(getID(getClass()));
+
         writeObject(printWriter, exception);
+
+        printWriter.flush();
 
     }
 }

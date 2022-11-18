@@ -51,8 +51,7 @@ public class Server extends Thread {
     @Override
     public void run() {
 
-        while (true) {
-
+        while (true)
             try {
 
                 Socket socket = serverSocket.accept();
@@ -60,19 +59,30 @@ public class Server extends Thread {
 
                 System.out.println("connection initialized");
 
-                AuthorizePacket authorizePacket = (AuthorizePacket) PacketSerialize.serialize(in);
-                authorizePacket.work();
+                while (true) {
 
-                System.out.println("received authorizePacket, " + authorizePacket.getCode());
+                    if (!in.ready())
+                        continue;
 
-                UserLoginPacket loginPacket = (UserLoginPacket) PacketSerialize.serialize(in);
-                loginPacket.work();
+                    AuthorizePacket authorizePacket = (AuthorizePacket) PacketSerialize.serialize(in);
+                    System.out.println("received authorizePacket, " + authorizePacket.getCode());
 
-                UserConnection userConnection = new UserConnection(socket, loginPacket.getUser());
+                    authorizePacket.work();
 
-                userConnections.add(userConnection);
+                    UserLoginPacket loginPacket = (UserLoginPacket) PacketSerialize.serialize(in);
+                    loginPacket.work();
 
-            } catch (Exception ignored) {}
-        }
+                    UserConnection userConnection = new UserConnection(socket, loginPacket.getUser());
+
+                    userConnections.add(userConnection);
+
+                    break;
+
+                }
+            } catch (Exception exception) {
+
+                exception.printStackTrace();
+
+            }
     }
 }
