@@ -29,7 +29,7 @@ public class PrivateMessages {
     long user1;
     long user2;
 
-    @ManyToOne(targetEntity = Message.class)
+    @ManyToMany(targetEntity = Message.class)
     List<Message> messages;
 
     public PrivateMessages(@NonNull long user1, @NonNull long user2) {
