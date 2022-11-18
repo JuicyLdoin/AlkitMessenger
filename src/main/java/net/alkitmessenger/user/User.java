@@ -29,7 +29,6 @@ public class User {
 
     String name;
     String password;
-
     String mail;
 
     List<Long> friends;
@@ -38,28 +37,13 @@ public class User {
 
     boolean logined;
 
-    public User(@NonNull String name) {
-
-        id = ThreadLocalRandom.current().nextLong();
-
-        displayID = IDUtil.generateRandomID(3);
-
-        this.name = name;
-
-        friends = new ArrayList<>();
-
-        creationDate = new Date();
-
-        logined = false;
-
-    }
-
-    public User(String name, String mail) {
+    public User(@NonNull String name, @NonNull String password, @NonNull String mail) {
 
         id = ThreadLocalRandom.current().nextLong();
         displayID = IDUtil.generateRandomID(3);
 
         this.name = name;
+        this.password = password;
         this.mail = mail;
 
         friends = new ArrayList<>();
