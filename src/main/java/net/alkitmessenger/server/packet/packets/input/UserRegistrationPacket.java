@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.Value;
-import net.alkitmessenger.server.packet.Packet;
-import net.alkitmessenger.server.packet.PacketWorkException;
+import net.alkitmessenger.packet.Packet;
+import net.alkitmessenger.packet.PacketWorkException;
 import net.alkitmessenger.user.User;
 
 import java.io.PrintWriter;

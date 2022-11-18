@@ -41,6 +41,7 @@ public class User {
     public User(@NonNull String name) {
 
         id = ThreadLocalRandom.current().nextLong();
+
         displayID = IDUtil.generateRandomID(3);
 
         this.name = name;
