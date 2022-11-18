@@ -1,4 +1,4 @@
-package net.alkitmessenger.server.packet;
+package net.alkitmessenger.packet;
 
 import com.google.gson.Gson;
 import lombok.NonNull;

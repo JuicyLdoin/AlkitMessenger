@@ -1,8 +1,8 @@
-package net.alkitmessenger.server.packet.packets.output;
+package net.alkitmessenger.packet.packets.output;
 
 import lombok.NonNull;
 import lombok.Value;
-import net.alkitmessenger.server.packet.Packet;
+import net.alkitmessenger.packet.Packet;
 import net.alkitmessenger.user.User;
 
 import java.io.PrintWriter;

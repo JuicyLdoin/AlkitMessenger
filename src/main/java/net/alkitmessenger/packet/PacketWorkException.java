@@ -1,3 +1,3 @@
-package net.alkitmessenger.server.packet;
+package net.alkitmessenger.packet;
 
 public class PacketWorkException extends RuntimeException {}

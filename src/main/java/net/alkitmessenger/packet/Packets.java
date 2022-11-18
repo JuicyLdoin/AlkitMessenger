@@ -1,9 +1,15 @@
-package net.alkitmessenger.server.packet;
+package net.alkitmessenger.packet;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
+import net.alkitmessenger.packet.packets.input.AuthorizePacket;
+import net.alkitmessenger.packet.packets.input.UserDisconnectPacket;
+import net.alkitmessenger.packet.packets.input.UserLoginPacket;
+import net.alkitmessenger.packet.packets.output.ExceptionPacket;
+import net.alkitmessenger.packet.packets.output.SendToWindowPacket;
+import net.alkitmessenger.packet.packets.output.UserDataPacket;
 import net.alkitmessenger.server.packet.packets.input.*;
 import net.alkitmessenger.server.packet.packets.output.*;
 

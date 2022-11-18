@@ -2,9 +2,9 @@ package net.alkitmessenger.user;
 
 import lombok.NonNull;
 import lombok.Value;
-import net.alkitmessenger.server.packet.Packet;
-import net.alkitmessenger.server.packet.PacketSerialize;
-import net.alkitmessenger.server.packet.packets.output.ExceptionPacket;
+import net.alkitmessenger.packet.Packet;
+import net.alkitmessenger.packet.PacketSerialize;
+import net.alkitmessenger.packet.packets.output.ExceptionPacket;
 
 import java.io.*;
 import java.net.Socket;

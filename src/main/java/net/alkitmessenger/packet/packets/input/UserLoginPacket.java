@@ -1,12 +1,12 @@
-package net.alkitmessenger.server.packet.packets.input;
+package net.alkitmessenger.packet.packets.input;
 
 import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.AlkitMessenger;
-import net.alkitmessenger.server.packet.Packet;
-import net.alkitmessenger.server.packet.PacketWorkException;
-import net.alkitmessenger.server.packet.packets.output.SendToWindowPacket;
-import net.alkitmessenger.server.packet.packets.output.UserDataPacket;
+import net.alkitmessenger.packet.Packet;
+import net.alkitmessenger.packet.PacketWorkException;
+import net.alkitmessenger.packet.packets.output.SendToWindowPacket;
+import net.alkitmessenger.packet.packets.output.UserDataPacket;
 import net.alkitmessenger.user.User;
 
 import java.util.LinkedList;

@@ -1,8 +1,8 @@
-package net.alkitmessenger.server.packet.packets.input;
+package net.alkitmessenger.packet.packets.input;
 
 import lombok.Value;
-import net.alkitmessenger.server.packet.Packet;
-import net.alkitmessenger.server.packet.PacketWorkException;
+import net.alkitmessenger.packet.Packet;
+import net.alkitmessenger.packet.PacketWorkException;
 import net.alkitmessenger.util.AuthorizeCodeUtil;
 
 @Value

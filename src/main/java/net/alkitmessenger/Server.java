@@ -1,10 +1,10 @@
-package net.alkitmessenger.server;
+package net.alkitmessenger;
 
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
-import net.alkitmessenger.server.packet.PacketSerialize;
-import net.alkitmessenger.server.packet.packets.input.AuthorizePacket;
+import net.alkitmessenger.packet.PacketSerialize;
+import net.alkitmessenger.packet.packets.input.AuthorizePacket;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.UserConnection;
 
