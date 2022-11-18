@@ -30,6 +30,8 @@ public class User {
     String name;
     String password;
 
+    String mail;
+
     List<Long> friends;
 
     Date creationDate;
@@ -49,6 +51,21 @@ public class User {
 
         logined = false;
 
+    }
+
+    public User(String name, String mail) {
+
+        id = ThreadLocalRandom.current().nextLong();
+        displayID = IDUtil.generateRandomID(3);
+
+        this.name = name;
+        this.mail = mail;
+
+        friends = new ArrayList<>();
+
+        creationDate = new Date();
+
+        logined = false;
     }
 
     public boolean equalsPassword(@NonNull String password) {
