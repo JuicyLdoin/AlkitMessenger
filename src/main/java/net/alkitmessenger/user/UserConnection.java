@@ -45,8 +45,7 @@ public class UserConnection extends Thread {
     @Override
     public void run() {
 
-        while (true) {
-
+        while (true)
             try {
 
                 // получение пакетов от пользователя
@@ -63,10 +62,7 @@ public class UserConnection extends Thread {
                     if (packet == null)
                         continue;
 
-                    Queue<Packet> packetData = packet.feedback();
-
-                    while (!packetData.isEmpty())
-                        packetData.poll().serialize(out);
+                    packet.serialize(out);
 
                 }
             } catch (Exception exception) {
@@ -75,6 +71,5 @@ public class UserConnection extends Thread {
                 throw new RuntimeException("Error on user " + user.getId() + ". Message: " + exception.getMessage());
 
             }
-        }
     }
 }
