@@ -4,19 +4,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
-import net.alkitmessenger.packet.packets.input.AuthorizePacket;
-import net.alkitmessenger.packet.packets.input.UserDisconnectPacket;
-import net.alkitmessenger.packet.packets.input.UserLoginPacket;
-import net.alkitmessenger.packet.packets.output.ExceptionPacket;
-import net.alkitmessenger.packet.packets.output.SendToWindowPacket;
-import net.alkitmessenger.packet.packets.output.UserDataPacket;
-import net.alkitmessenger.server.packet.packets.input.*;
-import net.alkitmessenger.server.packet.packets.output.*;
+import net.alkitmessenger.packet.packets.input.*;
+import net.alkitmessenger.packet.packets.output.*;
 
 @Getter
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public enum Packets {
 
+    USER_DATA_RECEIVE_PACKET((byte) -3, UserDataReceivePacket.class),
     USER_DISCONNECT_PACKET((byte) -2, UserDisconnectPacket.class),
     USER_LOGIN_PACKET((byte) -1, UserLoginPacket.class),
 
