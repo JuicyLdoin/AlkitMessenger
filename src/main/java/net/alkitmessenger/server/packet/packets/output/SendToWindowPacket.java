@@ -1,5 +1,6 @@
 package net.alkitmessenger.server.packet.packets.output;
 
+import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
 
@@ -10,13 +11,13 @@ public class SendToWindowPacket extends Packet {
 
     String windowPath;
 
-    public SendToWindowPacket(String windowPath) {
+    public SendToWindowPacket(@NonNull String windowPath) {
 
         this.windowPath = "/scenes/" + windowPath + "Scene.fxml";
 
     }
 
-    public void serialize(PrintWriter printWriter) {
+    public void serialize(@NonNull PrintWriter printWriter) {
 
         writeObject(printWriter, windowPath);
 

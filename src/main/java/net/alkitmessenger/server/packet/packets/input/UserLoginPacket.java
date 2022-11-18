@@ -1,5 +1,6 @@
 package net.alkitmessenger.server.packet.packets.input;
 
+import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.server.packet.Packet;
@@ -19,7 +20,7 @@ public class UserLoginPacket extends Packet {
     long uid;
     String password;
 
-    public UserLoginPacket(long uid, String password) {
+    public UserLoginPacket(@NonNull long uid, @NonNull String password) {
 
         user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(uid);
 

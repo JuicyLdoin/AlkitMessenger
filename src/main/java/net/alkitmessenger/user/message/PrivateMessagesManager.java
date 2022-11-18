@@ -1,5 +1,6 @@
 package net.alkitmessenger.user.message;
 
+import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.util.HibernateUtil;
@@ -20,13 +21,13 @@ public class PrivateMessagesManager {
 
     }
 
-    public PrivateMessages getByID(long id) {
+    public PrivateMessages getByID(@NonNull long id) {
 
         return privateMessagesMap.get(id);
 
     }
 
-    public List<PrivateMessages> getFromUser(User user) {
+    public List<PrivateMessages> getFromUser(@NonNull User user) {
 
         return privateMessagesMap.values()
                 .stream()

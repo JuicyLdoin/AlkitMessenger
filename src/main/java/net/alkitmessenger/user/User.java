@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.util.IDUtil;
 
@@ -35,7 +36,7 @@ public class User {
 
     boolean logined;
 
-    public User(String name) {
+    public User(@NonNull String name) {
 
         id = ThreadLocalRandom.current().nextLong();
         displayID = IDUtil.generateRandomID(3);
@@ -50,7 +51,7 @@ public class User {
 
     }
 
-    public boolean equalsPassword(String password) {
+    public boolean equalsPassword(@NonNull String password) {
 
         return this.password.equals(password);
 

@@ -1,6 +1,7 @@
 package net.alkitmessenger.server;
 
 import lombok.AccessLevel;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.server.packet.PacketSerialize;
 import net.alkitmessenger.server.packet.packets.input.AuthorizePacket;
@@ -31,7 +32,7 @@ public class Server extends Thread {
 
     }
 
-    public UserConnection getConnectionByUser(User user) {
+    public UserConnection getConnectionByUser(@NonNull User user) {
 
         return userConnections.stream()
                 .filter(userConnection -> userConnection.getUser().equals(user))
@@ -40,7 +41,7 @@ public class Server extends Thread {
 
     }
 
-    public void sendMessage(String msg) {
+    public void sendMessage(@NonNull String msg) {
 
         outMessage.println(msg);
 

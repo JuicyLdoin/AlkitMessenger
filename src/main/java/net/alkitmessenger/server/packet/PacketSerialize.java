@@ -1,6 +1,7 @@
 package net.alkitmessenger.server.packet;
 
 import com.google.gson.Gson;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import java.io.BufferedReader;
@@ -12,7 +13,7 @@ import java.util.List;
 @UtilityClass
 public class PacketSerialize {
 
-    public static Packet serialize(BufferedReader bufferedReader) throws IOException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException {
+    public static Packet serialize(@NonNull BufferedReader bufferedReader) throws IOException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException {
 
         if (!bufferedReader.ready())
             throw new IllegalAccessException();

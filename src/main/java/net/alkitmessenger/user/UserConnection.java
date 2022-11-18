@@ -1,5 +1,6 @@
 package net.alkitmessenger.user;
 
+import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.server.packet.PacketSerialize;
@@ -22,7 +23,7 @@ public class UserConnection extends Thread {
     Queue<Packet> outPackets;
     PrintWriter out;
 
-    public UserConnection(Socket socket, User user) throws IOException {
+    public UserConnection(@NonNull Socket socket, @NonNull User user) throws IOException {
 
         this.socket = socket;
         this.user = user;
@@ -35,7 +36,7 @@ public class UserConnection extends Thread {
     }
 
     // добавление пакета в очередь на отправку пользователю
-    public void addPacket(Packet packet) {
+    public void addPacket(@NonNull Packet packet) {
 
         outPackets.add(packet);
 

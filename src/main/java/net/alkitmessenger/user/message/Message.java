@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.user.User;
 
@@ -28,7 +29,7 @@ public class Message {
 
     Date date;
 
-    public Message(String text, long author) {
+    public Message(@NonNull String text, @NonNull long author) {
 
         id = ThreadLocalRandom.current().nextLong();
 
@@ -39,7 +40,7 @@ public class Message {
 
     }
 
-    public Message(String text, User author) {
+    public Message(@NonNull String text, @NonNull User author) {
 
         this(text, author.getId());
 

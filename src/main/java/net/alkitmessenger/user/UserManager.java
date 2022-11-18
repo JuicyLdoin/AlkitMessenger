@@ -1,5 +1,6 @@
 package net.alkitmessenger.user;
 
+import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.util.HibernateUtil;
 
@@ -17,19 +18,19 @@ public class UserManager {
 
     }
 
-    public User getUserByID(long id) {
+    public User getUserByID(@NonNull long id) {
 
         return users.get(id);
 
     }
 
-    public User getUserByID(String id) {
+    public User getUserByID(@NonNull String id) {
 
         return users.get(Long.parseLong(id));
 
     }
 
-    public User getUserByNameAndDisplayID(String name, String displayID) {
+    public User getUserByNameAndDisplayID(@NonNull String name, @NonNull String displayID) {
 
         return users.values()
                 .stream()
@@ -40,7 +41,7 @@ public class UserManager {
 
     }
 
-    public void saveUser(User user) {
+    public void saveUser(@NonNull User user) {
 
         HibernateUtil.saveOrUpdate(user);
 

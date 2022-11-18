@@ -1,5 +1,6 @@
 package net.alkitmessenger.util;
 
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.message.Message;
@@ -42,7 +43,7 @@ public class HibernateUtil {
 
     }
 
-    public static void registerAnnotatedClass(Class<?> clazz) {
+    public static void registerAnnotatedClass(@NonNull Class<?> clazz) {
 
         if (sessionFactory == null)
             getSessionFactory();
@@ -52,7 +53,7 @@ public class HibernateUtil {
 
     }
 
-    public static <T> Optional<T> getAndCallAction(Class<T> entityType, Object object, Consumer<T> consumer) {
+    public static <T> Optional<T> getAndCallAction(@NonNull Class<T> entityType, @NonNull Object object, @NonNull Consumer<T> consumer) {
 
         Optional<T> receivedOptional = get(entityType, object);
         receivedOptional.ifPresent(consumer);
@@ -61,19 +62,19 @@ public class HibernateUtil {
 
     }
 
-    public static <T> Optional<T> get(Class<T> entityType, Object object) {
+    public static <T> Optional<T> get(@NonNull Class<T> entityType, @NonNull Object object) {
 
         return Optional.ofNullable(getSessionFactory().openSession().get(entityType, object));
 
     }
 
-    public static <T> Optional<Query<T>> createQuery(String queryString, Class<T> resultClass) {
+    public static <T> Optional<Query<T>> createQuery(@NonNull String queryString, @NonNull Class<T> resultClass) {
 
         return Optional.ofNullable(getSessionFactory().openSession().createQuery(queryString, resultClass).setCacheable(false));
 
     }
 
-    public static <T> void createQueryAndCallActionForEach(String queryString, Class<T> resultClass, Consumer<T> consumer) {
+    public static <T> void createQueryAndCallActionForEach(@NonNull String queryString, @NonNull Class<T> resultClass, @NonNull Consumer<T> consumer) {
 
         Optional.ofNullable(getSessionFactory()
                         .openSession()
@@ -83,17 +84,13 @@ public class HibernateUtil {
 
     }
 
-    public static void saveOrUpdate(Object object) {
+    public static void saveOrUpdate(@NonNull Object object) {
 
-        if (object != null) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
 
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            Transaction transaction = session.beginTransaction();
+        session.saveOrUpdate(object);
 
-            session.saveOrUpdate(object);
-
-            transaction.commit();
-
-        }
+        transaction.commit();
     }
 }

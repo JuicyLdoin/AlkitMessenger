@@ -2,6 +2,7 @@ package net.alkitmessenger.server.packet;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.server.packet.packets.input.*;
 import net.alkitmessenger.server.packet.packets.output.*;
@@ -22,14 +23,14 @@ public enum Packets {
     byte id;
     Class<? extends Packet> clazz;
 
-    Packets(byte id, Class<? extends Packet> clazz) {
+    Packets(@NonNull byte id, @NonNull Class<? extends Packet> clazz) {
 
         this.id = id;
         this.clazz = clazz;
 
     }
 
-    public static Packets getByID(byte id) {
+    public static Packets getByID(@NonNull byte id) {
 
         for (Packets packets : values())
             if (packets.getId() == id)

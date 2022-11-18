@@ -1,5 +1,6 @@
 package net.alkitmessenger.server.packet.packets.output;
 
+import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
 
@@ -10,7 +11,7 @@ public class ExceptionPacket extends Packet {
 
     String exception;
 
-    public void serialize(PrintWriter printWriter) {
+    public void serialize(@NonNull PrintWriter printWriter) {
 
         writeObject(printWriter, exception);
 

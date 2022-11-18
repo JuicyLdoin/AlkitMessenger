@@ -1,5 +1,6 @@
 package net.alkitmessenger.server.packet.packets.output;
 
+import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.server.packet.Packet;
 import net.alkitmessenger.user.User;
@@ -14,7 +15,7 @@ public class UserDataPacket extends Packet {
     User user;
 
     @Override
-    public void serialize(PrintWriter printWriter) {
+    public void serialize(@NonNull PrintWriter printWriter) {
 
         printWriter.println(getID(getClass()));
 
