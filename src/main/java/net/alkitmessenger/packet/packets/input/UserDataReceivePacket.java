@@ -16,7 +16,7 @@ public class UserDataReceivePacket extends Packet {
     User user;
     Long uid;
 
-    public UserDataReceivePacket(long uid) {
+    public UserDataReceivePacket(Long uid) {
 
         user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(uid);
         this.uid = uid;

@@ -6,7 +6,6 @@ import net.alkitmessenger.packet.Packet;
 import net.alkitmessenger.packet.PacketWorkException;
 import net.alkitmessenger.packet.packets.output.UserDataPacket;
 import net.alkitmessenger.user.User;
-import net.alkitmessenger.util.MailUtil;
 
 import java.util.LinkedList;
 import java.util.Queue;

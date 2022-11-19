@@ -3,14 +3,17 @@ package net.alkitmessenger.user;
 import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.packet.Packet;
+import net.alkitmessenger.packet.PacketFeedback;
 import net.alkitmessenger.packet.PacketSerialize;
+import net.alkitmessenger.packet.Packets;
 import net.alkitmessenger.packet.packets.output.ExceptionPacket;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
-import java.util.Scanner;
 
 @Value
 public class UserConnection extends Thread {
@@ -24,6 +27,8 @@ public class UserConnection extends Thread {
     Queue<Packet> outPackets;
     PrintWriter out;
 
+    List<PacketFeedback> packetFeedback;
+
     public UserConnection(@NonNull Socket socket, @NonNull User user) throws IOException {
 
         this.socket = socket;
@@ -34,12 +39,22 @@ public class UserConnection extends Thread {
         outPackets = new LinkedList<>();
         out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
+        packetFeedback = new ArrayList<>();
+
+        start();
+
     }
 
     // добавление пакета в очередь на отправку пользователю
     public void addPacket(@NonNull Packet packet) {
 
         outPackets.add(packet);
+
+    }
+
+    public void addPacketFeedBack(PacketFeedback feedback) {
+
+        packetFeedback.add(feedback);
 
     }
 
@@ -51,8 +66,38 @@ public class UserConnection extends Thread {
 
                 // получение пакетов от пользователя
 
-                while (in.ready())
-                    PacketSerialize.serialize(in).work();
+                while (in.ready()) {
+
+                    Packet inputPacket = PacketSerialize.serialize(in);
+
+                    List<PacketFeedback> toRemove = new ArrayList<>();
+
+                    packetFeedback.forEach(feedback -> {
+
+                        if (feedback.exception() != null)
+                            if (!feedback.exception().isEmpty())
+                                if (inputPacket instanceof ExceptionPacket)
+                                    if (feedback.exception().equals(((ExceptionPacket) inputPacket).getMessage())) {
+
+                                        toRemove.add(feedback);
+                                        feedback.resume(PacketFeedback.Reason.EXCEPTION);
+
+                                    }
+
+                        if (feedback.packet() != null)
+                            if (feedback.packet().equals(Packets.getByClass(inputPacket.getClass()))) {
+
+                                toRemove.add(feedback);
+                                feedback.resume(PacketFeedback.Reason.PACKET);
+
+                            }
+                    });
+
+                    toRemove.forEach(feedback -> packetFeedback.remove(feedback));
+
+                    inputPacket.work();
+
+                }
 
                 // отправка пакетов пользователю из очереди
 
@@ -63,13 +108,15 @@ public class UserConnection extends Thread {
                     if (packet == null)
                         continue;
 
+                    System.out.println(packet.getClass().getName());
+
                     packet.serialize(out);
 
                 }
             } catch (Exception exception) {
 
                 addPacket(new ExceptionPacket(exception.getMessage()));
-                throw new RuntimeException("Error on user " + user.getId() + ". Message: " + exception.getMessage());
+                System.out.println("Error on user " + user.getId() + ". Message: " + exception.getMessage());
 
             }
     }

@@ -20,7 +20,7 @@ public class UserLoginPacket extends Packet {
     Long uid;
     String password;
 
-    public UserLoginPacket(@NonNull long uid, @NonNull String password) {
+    public UserLoginPacket(@NonNull Long uid, @NonNull String password) {
 
         user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(uid);
 
@@ -35,7 +35,7 @@ public class UserLoginPacket extends Packet {
             throw new PacketWorkException();
 
         if (!user.getPassword().equals(password))
-            throw new PacketWorkException();
+            throw new RuntimeException("Password not equal");
 
     }
 
