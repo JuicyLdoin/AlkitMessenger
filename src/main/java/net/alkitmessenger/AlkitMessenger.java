@@ -29,11 +29,6 @@ public class AlkitMessenger {
     public static void main(String[] args) throws IOException {
 
         alkitMessenger = new AlkitMessenger();
-
-        MailUtil util = new MailUtil("", "");
-
-        util.send("This is Subject", "SSL: This is text!", "User@mail.com");
-
     }
 
     public AlkitMessenger() throws IOException {
