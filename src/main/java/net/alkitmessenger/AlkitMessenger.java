@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.user.UserManager;
 import net.alkitmessenger.user.message.PrivateMessagesManager;
+import net.alkitmessenger.util.MailUtil;
 
 import java.io.IOException;
 
@@ -28,6 +29,10 @@ public class AlkitMessenger {
     public static void main(String[] args) throws IOException {
 
         alkitMessenger = new AlkitMessenger();
+
+        MailUtil util = new MailUtil("", "");
+
+        util.send("This is Subject", "SSL: This is text!", "User@mail.com");
 
     }
 
