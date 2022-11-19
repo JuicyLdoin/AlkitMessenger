@@ -71,6 +71,8 @@ public class Server extends Thread {
                     UserConnectPacket connectPacket = (UserConnectPacket) PacketSerialize.serialize(in);
                     connectPacket.work();
 
+                    System.out.println("User " + connectPacket.getUid() + " connected");
+
                     UserConnection userConnection = new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(connectPacket.getUid()));
 
                     userConnections.add(userConnection);

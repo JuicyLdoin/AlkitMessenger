@@ -10,7 +10,7 @@ import net.alkitmessenger.user.UserManager;
 @Value
 public class UserConnectPacket extends Packet {
 
-    long uid;
+    Long uid;
 
     public void work() throws PacketWorkException {
 
