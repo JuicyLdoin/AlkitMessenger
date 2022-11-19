@@ -17,7 +17,7 @@ public class UserLoginPacket extends Packet {
 
     User user;
 
-    long uid;
+    Long uid;
     String password;
 
     public UserLoginPacket(@NonNull long uid, @NonNull String password) {

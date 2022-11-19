@@ -14,7 +14,7 @@ import java.util.Queue;
 public class UserDataReceivePacket extends Packet {
 
     User user;
-    long uid;
+    Long uid;
 
     public UserDataReceivePacket(long uid) {
 

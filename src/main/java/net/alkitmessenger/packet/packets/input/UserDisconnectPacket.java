@@ -9,7 +9,7 @@ import net.alkitmessenger.user.User;
 @Value
 public class UserDisconnectPacket extends Packet {
 
-    long uid;
+    Long uid;
 
     public void work() throws PacketWorkException {
 
