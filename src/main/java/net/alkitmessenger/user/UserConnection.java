@@ -19,7 +19,7 @@ public class UserConnection extends Thread {
 
     Socket socket;
 
-    Scanner in;
+    BufferedReader in;
 
     Queue<Packet> outPackets;
     PrintWriter out;
@@ -29,7 +29,7 @@ public class UserConnection extends Thread {
         this.socket = socket;
         this.user = user;
 
-        in = new Scanner(socket.getInputStream());
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         outPackets = new LinkedList<>();
         out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -51,7 +51,7 @@ public class UserConnection extends Thread {
 
                 // получение пакетов от пользователя
 
-                while (in.hasNext())
+                while (in.ready())
                     PacketSerialize.serialize(in).work();
 
                 // отправка пакетов пользователю из очереди

@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.packet.PacketSerialize;
 import net.alkitmessenger.packet.packets.input.AuthorizePacket;
+import net.alkitmessenger.packet.packets.input.UserConnectPacket;
 import net.alkitmessenger.packet.packets.input.UserLoginPacket;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.UserConnection;
@@ -55,24 +56,22 @@ public class Server extends Thread {
             try {
 
                 Socket socket = serverSocket.accept();
-                Scanner in = new Scanner(socket.getInputStream());
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 System.out.println("connection initialized");
 
                 while (true) {
 
-                    if (!in.hasNext())
+                    if (!in.ready())
                         continue;
 
                     AuthorizePacket authorizePacket = (AuthorizePacket) PacketSerialize.serialize(in);
-                    System.out.println("received authorizePacket, " + authorizePacket.getCode());
-
                     authorizePacket.work();
 
-                    UserLoginPacket loginPacket = (UserLoginPacket) PacketSerialize.serialize(in);
-                    loginPacket.work();
+                    UserConnectPacket connectPacket = (UserConnectPacket) PacketSerialize.serialize(in);
+                    connectPacket.work();
 
-                    UserConnection userConnection = new UserConnection(socket, loginPacket.getUser());
+                    UserConnection userConnection = new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(connectPacket.getUid()));
 
                     userConnections.add(userConnection);
 

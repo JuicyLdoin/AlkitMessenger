@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.util.IDUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +38,24 @@ public class User {
 
     boolean logined;
 
+    public User(@NotNull long id) {
+
+        this.id = id;
+
+        displayID = IDUtil.generateRandomID(3);
+
+        name = "";
+        password = "";
+        mail = "";
+
+        friends = new ArrayList<>();
+
+        creationDate = new Date();
+
+        logined = false;
+
+    }
+
     public User(@NonNull String name, @NonNull String password, @NonNull String mail) {
 
         id = ThreadLocalRandom.current().nextLong();
@@ -51,6 +70,7 @@ public class User {
         creationDate = new Date();
 
         logined = false;
+
     }
 
     public boolean equalsPassword(@NonNull String password) {
