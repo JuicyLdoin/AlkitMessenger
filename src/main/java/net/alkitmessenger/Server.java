@@ -7,6 +7,7 @@ import net.alkitmessenger.packet.PacketSerialize;
 import net.alkitmessenger.packet.packets.input.AuthorizePacket;
 import net.alkitmessenger.packet.packets.input.UserConnectPacket;
 import net.alkitmessenger.packet.packets.input.UserLoginPacket;
+import net.alkitmessenger.packet.packets.input.UserMsgPacket;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.UserConnection;
 
@@ -70,6 +71,9 @@ public class Server extends Thread {
 
                     UserConnectPacket connectPacket = (UserConnectPacket) PacketSerialize.serialize(in);
                     connectPacket.work();
+
+                    UserMsgPacket userMsgPacket = (UserMsgPacket) PacketSerialize.serialize(in);
+                    userMsgPacket.work();
 
                     System.out.println("User " + connectPacket.getUid() + " connected");
 
