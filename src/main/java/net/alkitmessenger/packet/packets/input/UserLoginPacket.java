@@ -44,7 +44,7 @@ public class UserLoginPacket extends Packet {
         Queue<Packet> feedback = new LinkedList<>();
 
         feedback.add(new UserDataPacket(user));
-        feedback.add(new SendToWindowPacket("main"));
+        feedback.add(new SendToWindowPacket("Main"));
 
         return feedback;
 
