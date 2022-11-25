@@ -1,13 +1,13 @@
 package net.alkitmessenger;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
+import net.alkitmessenger.packet.Packet;
 import net.alkitmessenger.packet.PacketSerialize;
 import net.alkitmessenger.packet.packets.input.AuthorizePacket;
 import net.alkitmessenger.packet.packets.input.UserConnectPacket;
-import net.alkitmessenger.packet.packets.input.UserLoginPacket;
-import net.alkitmessenger.packet.packets.input.UserMsgPacket;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.UserConnection;
 
@@ -16,6 +16,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Server extends Thread {
 
@@ -61,28 +62,32 @@ public class Server extends Thread {
 
                 System.out.println("connection initialized");
 
+                Queue<Packet> packets = new LinkedList<>();
+
                 while (true) {
 
                     if (!in.ready())
                         continue;
 
-                    AuthorizePacket authorizePacket = (AuthorizePacket) PacketSerialize.serialize(in);
-                    authorizePacket.work();
+                    packets.add(PacketSerialize.serialize(in));
 
-                    UserConnectPacket connectPacket = (UserConnectPacket) PacketSerialize.serialize(in);
-                    connectPacket.work();
+                    if (packets.size() >= 2) {
 
-                    UserMsgPacket userMsgPacket = (UserMsgPacket) PacketSerialize.serialize(in);
-                    userMsgPacket.work();
+                        AuthorizePacket authorizePacket = (AuthorizePacket) packets.poll();
+                        authorizePacket.work();
 
-                    System.out.println("User " + connectPacket.getUid() + " connected");
+                        UserConnectPacket connectPacket = (UserConnectPacket) packets.poll();
+                        connectPacket.work();
 
-                    UserConnection userConnection = new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(connectPacket.getUid()));
+                        System.out.println("User " + connectPacket.getUid() + " connected");
 
-                    userConnections.add(userConnection);
+                        UserConnection userConnection = new UserConnection(socket, AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(connectPacket.getUid()));
 
-                    break;
+                        userConnections.add(userConnection);
 
+                        break;
+
+                    }
                 }
             } catch (Exception exception) {
 

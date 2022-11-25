@@ -2,11 +2,13 @@ package net.alkitmessenger.user;
 
 import lombok.NonNull;
 import lombok.Value;
+import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.packet.Packet;
 import net.alkitmessenger.packet.PacketFeedback;
 import net.alkitmessenger.packet.PacketSerialize;
 import net.alkitmessenger.packet.Packets;
-import net.alkitmessenger.packet.packets.output.ExceptionPacket;
+import net.alkitmessenger.packet.packets.ExceptionPacket;
+import net.alkitmessenger.packet.packets.input.UserDisconnectPacket;
 
 import java.io.*;
 import java.net.Socket;
@@ -88,6 +90,8 @@ public class UserConnection extends Thread {
                             if (feedback.getPacket().equals(Packets.getByClass(inputPacket.getClass()))) {
 
                                 toRemove.add(feedback);
+
+                                feedback.setReceivedPacket(inputPacket);
                                 feedback.resume(PacketFeedback.Reason.PACKET);
 
                             }
@@ -97,6 +101,24 @@ public class UserConnection extends Thread {
 
                     inputPacket.work();
 
+                    try {
+
+                        outPackets.addAll(inputPacket.feedback());
+
+                    } catch (Exception ignored) {}
+
+                    if (inputPacket instanceof UserDisconnectPacket) {
+
+                        socket.close();
+                        AlkitMessenger.getAlkitMessenger().getServer().getUserConnections().remove(this);
+
+                        System.out.println("User " + user.getId() + " disconnected");
+
+                        stop();
+
+                        return;
+
+                    }
                 }
 
                 // отправка пакетов пользователю из очереди
@@ -107,8 +129,6 @@ public class UserConnection extends Thread {
 
                     if (packet == null)
                         continue;
-
-                    System.out.println(packet.getClass().getName());
 
                     packet.serialize(out);
 

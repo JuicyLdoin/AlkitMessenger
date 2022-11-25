@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.user.UserManager;
 import net.alkitmessenger.user.message.PrivateMessagesManager;
-import net.alkitmessenger.util.MailUtil;
 
 import java.io.IOException;
 
@@ -13,7 +12,7 @@ import java.io.IOException;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AlkitMessenger {
 
-    static AlkitMessenger alkitMessenger;
+    private static AlkitMessenger alkitMessenger;
 
     public static AlkitMessenger getAlkitMessenger() {
 
@@ -29,6 +28,7 @@ public class AlkitMessenger {
     public static void main(String[] args) throws IOException {
 
         alkitMessenger = new AlkitMessenger();
+
     }
 
     public AlkitMessenger() throws IOException {

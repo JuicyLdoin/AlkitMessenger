@@ -17,14 +17,14 @@ public class UserLoginPacket extends Packet {
 
     User user;
 
-    Long uid;
+    String mail;
     String password;
 
-    public UserLoginPacket(@NonNull Long uid, @NonNull String password) {
+    public UserLoginPacket(@NonNull String mail, @NonNull String password) {
 
-        user = AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(uid);
+        user = AlkitMessenger.getAlkitMessenger().getUserManager().getByMail(mail);
 
-        this.uid = uid;
+        this.mail = mail;
         this.password = password;
 
     }
@@ -32,7 +32,7 @@ public class UserLoginPacket extends Packet {
     public void work() throws PacketWorkException {
 
         if (user == null)
-            throw new PacketWorkException();
+            throw new RuntimeException("User not found");
 
         if (!user.getPassword().equals(password))
             throw new RuntimeException("Password not equal");

@@ -34,14 +34,17 @@ public class UserRegistrationPacket extends Packet {
 
         Matcher m = pattern.matcher(this.mail);
 
-        if (m.matches()){
+        if (m.matches()) {
+
 //        MailUtil util = new MailUtil("", "");
 //
 //        util.send(name, "Hello! Your registration on AlkitMessager was successful", mail);
-//
 
-        } else new PacketWorkException();
+        } else
+            throw new PacketWorkException();
+
     }
+
     @Override
     public Queue<Packet> feedback() {
 

@@ -19,6 +19,7 @@ public class PacketFeedback {
 
     final Consumer<PacketFeedback> consumer;
 
+    Packet receivedPacket;
     Reason reason;
 
     public PacketFeedback(@NotNull Thread waitThread, @Nullable Packets packet, @Nullable String exception, @NotNull Consumer<PacketFeedback> consumer) {
@@ -35,15 +36,13 @@ public class PacketFeedback {
     public void resume(Reason reason) {
 
         this.reason = reason;
+        consumer.accept(this);
 
         synchronized (waitThread) {
 
             waitThread.notify();
 
         }
-
-        consumer.accept(this);
-
     }
 
     public enum Reason {

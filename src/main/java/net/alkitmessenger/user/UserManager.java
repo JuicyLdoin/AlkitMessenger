@@ -3,6 +3,7 @@ package net.alkitmessenger.user;
 import lombok.NonNull;
 import lombok.Value;
 import net.alkitmessenger.util.HibernateUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +15,24 @@ public class UserManager {
 
     public UserManager() {
 
-        new Thread(() -> HibernateUtil.createQueryAndCallActionForEach("From User", User.class, user -> users.put(user.getId(), user))).start();
+    }
+
+    public void createUser(long id) {
+
+        if (users.containsKey(id))
+            return;
+
+        User user = new User(id);
+        users.put(id, user);
+
+        saveUser(user);
 
     }
 
-    public User getUserByID(@NonNull long id) {
+    public User getUserByID(long id) {
+
+        if (!users.containsKey(id))
+            createUser(id);
 
         return users.get(id);
 
@@ -26,7 +40,7 @@ public class UserManager {
 
     public User getUserByID(@NonNull String id) {
 
-        return users.get(Long.parseLong(id));
+        return getUserByID(Long.parseLong(id));
 
     }
 
@@ -41,9 +55,26 @@ public class UserManager {
 
     }
 
+    public User getByMail(@NotNull String mail) {
+
+        return users.values()
+                .stream()
+                .filter(user -> user.getMail().equals(mail))
+                .toList()
+                .get(0);
+
+    }
+
     public void saveUser(@NonNull User user) {
 
+        System.out.println("save " + user.getId());
         HibernateUtil.saveOrUpdate(user);
+
+    }
+
+    public void saveAll() {
+
+        users.values().forEach(this::saveUser);
 
     }
 }

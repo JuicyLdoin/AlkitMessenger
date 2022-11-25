@@ -1,7 +1,7 @@
 package net.alkitmessenger.packet;
 
 import com.google.gson.Gson;
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
@@ -13,23 +13,23 @@ public abstract class Packet {
 
     public Queue<Packet> feedback() { throw new UnsupportedOperationException(); }
 
-    public void serialize(@NonNull PrintWriter printWriter) {}
+    public void serialize(@NotNull PrintWriter printWriter) {}
 
-    protected <T> void writeField(@NonNull PrintWriter printWriter, @NonNull Field field, @NonNull T parent) throws IllegalAccessException {
+    protected <T> void writeField(@NotNull PrintWriter printWriter, @NotNull Field field, @NotNull T parent) throws IllegalAccessException {
 
         new Gson().toJson(new PacketData<>(field.get(parent)), printWriter);
         printWriter.println();
 
     }
 
-    protected <T> void writeObject(@NonNull PrintWriter printWriter, @NonNull T parent) {
+    protected <T> void writeObject(@NotNull PrintWriter printWriter, @NotNull T parent) {
 
         new Gson().toJson(new PacketData<>(parent), printWriter);
         printWriter.println();
 
     }
 
-    protected int getID(@NonNull Class<? extends Packet> clazz) {
+    protected int getID(@NotNull Class<? extends Packet> clazz) {
 
         for (Packets packets : Packets.values())
             if (packets.getClazz().equals(clazz))

@@ -2,22 +2,21 @@ package net.alkitmessenger.packet.packets.output;
 
 import lombok.NonNull;
 import lombok.Value;
+import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.packet.Packet;
-import net.alkitmessenger.user.User;
 
 import java.io.PrintWriter;
 
 @Value
-public class UserDataPacket extends Packet {
+public class PrivateMessagesDataPacket extends Packet {
 
-    User user;
+    Long id;
 
-    @Override
     public void serialize(@NonNull PrintWriter printWriter) {
 
         printWriter.println(getID(getClass()));
 
-        writeObject(printWriter, user);
+        writeObject(printWriter, AlkitMessenger.getAlkitMessenger().getPrivateMessagesManager().getByID(id));
 
         printWriter.flush();
 

@@ -22,10 +22,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Message {
 
     @Id
-    long id;
+    Long id;
 
     String text;
-    long author;
+    Long author;
 
     Date date;
 
