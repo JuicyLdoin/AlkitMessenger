@@ -16,18 +16,18 @@ import java.util.regex.Pattern;
 public class UserRegistrationPacket extends Packet {
 
     String name;
-    String password;
     String mail;
+    String password;
 
     User user;
 
-    public UserRegistrationPacket(String name, String password, String mail) {
+    public UserRegistrationPacket(String name, String mail, String password) {
 
         this.name = name;
-        this.password = password;
         this.mail = mail;
+        this.password = password;
 
-        user = new User(name, password, mail);
+        user = new User(name, mail, password);
 
         AlkitMessenger.getAlkitMessenger().getUserManager().getUsers().put(user.getId(), user);
 
@@ -35,17 +35,17 @@ public class UserRegistrationPacket extends Packet {
 
     public void work() throws PacketWorkException {
 
-        Pattern pattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
-        Matcher matcher = pattern.matcher(this.mail);
-
-        if (matcher.matches()) {
-
+//        Pattern pattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+//        Matcher matcher = pattern.matcher(this.mail);
+//
+//        if (matcher.matches()) {
+//
 //        MailUtil util = new MailUtil("", "");
 //
 //        util.send(name, "Hello! Your registration on AlkitMessager was successful", mail);
-
-        } else
-            throw new PacketWorkException();
+//
+//        } else
+//            throw new PacketWorkException();
 
     }
 

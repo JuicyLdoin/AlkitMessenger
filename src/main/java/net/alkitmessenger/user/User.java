@@ -27,8 +27,8 @@ public class User {
     String displayID;
 
     String name;
-    String password;
     String mail;
+    String password;
 
     @ManyToMany
     @JoinTable(name="user_friends",
@@ -59,14 +59,14 @@ public class User {
 
     }
 
-    public User(@NonNull String name, @NonNull String password, @NonNull String mail) {
+    public User(@NonNull String name, @NonNull String mail, @NonNull String password) {
 
         id = ThreadLocalRandom.current().nextLong();
         displayID = IDUtil.generateRandomID(3);
 
         this.name = name;
-        this.password = password;
         this.mail = mail;
+        this.password = password;
 
         friends = new ArrayList<>();
 
