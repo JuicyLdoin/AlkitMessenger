@@ -28,13 +28,17 @@ public class UserRegistrationPacket extends Packet {
         this.mail = mail;
 
         user = new User(name, password, mail);
+
         AlkitMessenger.getAlkitMessenger().getUserManager().getUsers().put(user.getId(), user);
 
+    }
+
+    public void work() throws PacketWorkException {
+
         Pattern pattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+        Matcher matcher = pattern.matcher(this.mail);
 
-        Matcher m = pattern.matcher(this.mail);
-
-        if (m.matches()) {
+        if (matcher.matches()) {
 
 //        MailUtil util = new MailUtil("", "");
 //
