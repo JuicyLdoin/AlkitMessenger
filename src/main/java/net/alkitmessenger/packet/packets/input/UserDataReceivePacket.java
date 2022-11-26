@@ -13,12 +13,6 @@ public class UserDataReceivePacket extends Packet {
 
     Long uid;
 
-    public UserDataReceivePacket(Long uid) {
-
-        this.uid = uid;
-
-    }
-
     public Queue<Packet> feedback() {
 
         Queue<Packet> queue = new LinkedList<>();
