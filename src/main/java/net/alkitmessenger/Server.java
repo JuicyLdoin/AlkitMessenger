@@ -11,10 +11,16 @@ import net.alkitmessenger.packet.packets.input.UserConnectPacket;
 import net.alkitmessenger.user.User;
 import net.alkitmessenger.user.UserConnection;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -45,12 +51,6 @@ public class Server extends Thread {
 
     }
 
-    public void sendMessage(@NonNull String msg) {
-
-        outMessage.println(msg);
-
-    }
-
     @Override
     public void run() {
 
@@ -77,6 +77,7 @@ public class Server extends Thread {
                         authorizePacket.work();
 
                         UserConnectPacket connectPacket = (UserConnectPacket) packets.poll();
+                        assert connectPacket != null;
                         connectPacket.work();
 
                         System.out.println("User " + connectPacket.getUid() + " connected");

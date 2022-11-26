@@ -1,9 +1,9 @@
 package net.alkitmessenger.util;
-import java.util.Properties;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 public class MailUtil {
 
@@ -22,7 +22,7 @@ public class MailUtil {
         props.put("mail.smtp.port", "587");
     }
 
-    public void send(String subject, String text, String toEmail){
+    public void send(String subject, String text, String toEmail) {
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);

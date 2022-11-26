@@ -1,6 +1,9 @@
 package net.alkitmessenger.user.message;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +35,7 @@ public class PrivateMessages {
     @ManyToMany(targetEntity = Message.class)
     List<Message> messages;
 
-    public PrivateMessages(@NonNull long user1, @NonNull long user2) {
+    public PrivateMessages(long user1, long user2) {
 
         id = ThreadLocalRandom.current().nextLong();
 
@@ -61,7 +64,7 @@ public class PrivateMessages {
 
     }
 
-    public boolean hasUser(@NonNull long user) {
+    public boolean hasUser(long user) {
 
         return user1 == user || user2 == user;
 
@@ -73,7 +76,7 @@ public class PrivateMessages {
 
     }
 
-    public User getSecondUser(@NonNull long user) {
+    public User getSecondUser(long user) {
 
         return AlkitMessenger.getAlkitMessenger().getUserManager().getUserByID(getSecondUserID(user));
 
@@ -85,7 +88,7 @@ public class PrivateMessages {
 
     }
 
-    public long getSecondUserID(@NonNull long user) {
+    public long getSecondUserID(long user) {
 
         return user1 == user ? user2 : user1;
 

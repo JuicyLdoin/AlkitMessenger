@@ -9,8 +9,6 @@ import net.alkitmessenger.user.User;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Value
 public class UserRegistrationPacket extends Packet {

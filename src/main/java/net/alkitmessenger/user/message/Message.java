@@ -29,7 +29,7 @@ public class Message {
 
     Date date;
 
-    public Message(@NonNull String text, @NonNull long author) {
+    public Message(@NonNull String text, long author) {
 
         id = ThreadLocalRandom.current().nextLong();
 

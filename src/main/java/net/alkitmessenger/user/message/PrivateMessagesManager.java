@@ -21,7 +21,7 @@ public class PrivateMessagesManager {
 
     }
 
-    public PrivateMessages getByID(@NonNull long id) {
+    public PrivateMessages getByID(long id) {
 
         return privateMessagesMap.get(id);
 

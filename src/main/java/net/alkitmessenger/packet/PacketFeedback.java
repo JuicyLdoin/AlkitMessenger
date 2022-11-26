@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import net.alkitmessenger.packet.packets.ExceptionPacket;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,19 +25,6 @@ public class PacketFeedback {
     public PacketFeedback() {
 
         consumerMap = new HashMap<>();
-
-    }
-
-    public PacketFeedback(@NotNull Map<Reason, Consumer<PacketFeedback>> consumerMap) {
-
-        this.consumerMap = consumerMap;
-
-    }
-
-    public PacketFeedback(@NotNull Thread waitThread, @NotNull Map<Reason, Consumer<PacketFeedback>> consumerMap) {
-
-        this.waitThread = waitThread;
-        this.consumerMap = consumerMap;
 
     }
 

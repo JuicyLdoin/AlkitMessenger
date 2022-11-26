@@ -91,7 +91,8 @@ public class UserConnection extends Thread {
 
                         outPackets.addAll(inputPacket.feedback());
 
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
 
                     if (inputPacket instanceof UserDisconnectPacket) {
 
