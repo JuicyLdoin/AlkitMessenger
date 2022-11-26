@@ -6,7 +6,6 @@ import net.alkitmessenger.AlkitMessenger;
 import net.alkitmessenger.packet.Packet;
 import net.alkitmessenger.packet.PacketFeedback;
 import net.alkitmessenger.packet.PacketSerialize;
-import net.alkitmessenger.packet.Packets;
 import net.alkitmessenger.packet.packets.ExceptionPacket;
 import net.alkitmessenger.packet.packets.input.UserDisconnectPacket;
 
