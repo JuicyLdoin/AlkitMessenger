@@ -78,8 +78,7 @@ public class UserConnection extends Thread {
                         feedback.setReceivedPacket(inputPacket);
                         feedback.resume(inputPacket instanceof ExceptionPacket ? PacketFeedback.Reason.EXCEPTION : PacketFeedback.Reason.PACKET);
 
-                        if (feedback.isRead())
-                            toRemove.add(feedback);
+                        toRemove.add(feedback);
 
                     });
 
